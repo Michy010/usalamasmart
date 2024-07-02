@@ -1,0 +1,23 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Training Sessions{% endblock %}
+{% block content%}
+    <div class="container">
+        <h1>Training Sessions</h1>
+        <ul class="content-list">
+            {% for content in contents %}
+                <li class="content-item">
+                    <h2>{{ content.title }}</h2>
+                    <p class="timestamp">Posted on {{ content.created_at|date:"F j, Y" }}</p>
+                    {% if content.content_type == 'text' %}
+                        <p>{{ content.text }}</p>
+                    {% elif content.content_type == 'image' %}
+                        <img src="{{ content.image.url }}" alt="Image">
+                    {% elif content.content_type == 'video' %}
+                        <a href="{{ content.video_url }}" target="_blank">Watch Video</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

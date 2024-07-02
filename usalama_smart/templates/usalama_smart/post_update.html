@@ -1,0 +1,16 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Post Update{% endblock %}
+{% block content%}
+<div class="container">
+    <header class="bg-primary text-center">
+        <h1>Post Update</h1>
+    </header>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="title" class="form-control" placeholder="Title"><br>
+        <textarea name="content" class="form-control" placeholder="Content"></textarea><br>
+        <button type="submit" class="btn">Post Update</button>
+    </form>
+</div>
+{% endblock %}

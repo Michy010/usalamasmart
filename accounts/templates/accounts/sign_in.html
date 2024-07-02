@@ -1,0 +1,28 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Sign In{% endblock %}
+{% block content%}
+<div class="body1">
+  <div class="signin-container">
+    <h1 class="h11">Welcome Back!</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
+
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+    
+    <p class="signup-link">Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
+  </div>
+</div>
+{% endblock %}

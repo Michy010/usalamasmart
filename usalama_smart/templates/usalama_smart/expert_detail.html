@@ -1,0 +1,22 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Expert Details{% endblock %}
+{% block content %}
+    <div class="expert-detail-page">
+        <div class="expert-detail-container">
+            <h1 class="expert-name">{{ expert.name }}</h1>
+            <div class="expert-profile">
+                <img src="{{ expert.profile_picture.url }}" alt="{{ expert.name }}" class="expert-picture">
+                <p class="expert-bio">{{ expert.bio }}</p>
+            </div>
+            <div class="consultation-form-container">
+                <h2 class="consultation-heading">Book a Consultation</h2>
+                <form method="post" class="consultation-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="book-button">Book</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

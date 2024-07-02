@@ -1,0 +1,22 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}ohs links{% endblock %}
+{% block content %}
+<h1 class="header">Add a New OHS Link</h1>
+<div class="form-container1">
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.title.label_tag }} {{ form.title }}
+        </div>
+        <div>
+            {{ form.url.label_tag }} {{ form.url }}
+        </div>
+        <div>
+            {{ form.description.label_tag }} {{ form.description }}
+        </div>
+        <button type="submit" class="button">Add Link</button>
+    </form>
+</div>
+<!-- <a href="{% url 'usalama_smart:ohs_link_list' %}">Back to list</a> -->
+{% endblock %}

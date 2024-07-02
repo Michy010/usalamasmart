@@ -1,0 +1,11 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content%}
+<section class="home-page">
+    <div class="header-text">
+        <h3>USALAMA SMART</h3><br>
+        <a href="{% url 'accounts:signin' %}">GET STARTED</a>
+    </div>
+</section>
+{% endblock %}

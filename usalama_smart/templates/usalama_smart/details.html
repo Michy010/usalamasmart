@@ -1,0 +1,63 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Details{% endblock %}
+{% block content%}
+    <div class="items-box">
+        <div class="item">
+            <a href="{% url 'usalama_smart:content_list' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/Training.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>Training modules</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:report_incidence' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/Report.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>Incident reporting</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:ohs_link_list' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/OHS.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>OHS regulations & guidelines</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:expert_list' %}">
+                <div class="image-div">
+                    <img src="{% static 'usalama_smart/img/Consulting.jpg' %}" alt="Training session">
+                </div>
+            </a>
+            <p>Consultation services</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:all_updates' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/Updates.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>Updates</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:view_lawyers' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/Lawyers.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>Lawyers</p>
+        </div>
+        <div class="item">
+            <a href="{% url 'usalama_smart:incident-chart' %}">
+            <div class="image-div">
+                <img src="{% static 'usalama_smart/img/Statistics.jpg' %}" alt="Training session">
+            </div>
+            </a>
+            <p>Data statistics</p>
+        </div>
+    </div>
+{% endblock %}

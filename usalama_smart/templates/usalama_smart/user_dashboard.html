@@ -1,0 +1,22 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}My Consultations{% endblock %}
+{% block content %}
+    <div class="user-dashboard-page">
+        <h1 class="dashboard-heading">My Consultations</h1>
+        <div class="consultations-list">
+            {% for consultation in consultations %}
+                <div class="consultation-item">
+                    <h2>Consultation with {{ consultation.expert.name }}</h2>
+                    <p>Status: {{ consultation.status }}</p>
+                    {% if consultation.status == 'Accepted' %}
+                        <p>Meeting Link: <a href="{{ consultation.meeting_link }}">{{ consultation.meeting_link }}</a></p>
+                    {% elif consultation.status == 'Declined' %}
+                        <p>Decline Message: {{ consultation.decline_message }}</p>
+                    {% endif %}
+                    <p>Date: {{ consultation.consultation_date }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

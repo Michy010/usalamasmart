@@ -1,0 +1,59 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Incident Chart{% endblock %}
+{% block content %}
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('myChart').getContext('2d');
+
+            const labels = JSON.parse('{{ labels|escapejs }}');
+            const data = JSON.parse('{{ data|escapejs }}');
+
+            // Severity Levels for Y-axis
+            const severityLabels = ['Low', 'Medium', 'High'];
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Incident Severity',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Incident Title'
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            min: 0.5,
+                            max: 3.5,  // To ensure space for labels
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value, index, values) {
+                                    return severityLabels[value - 1]; // Map numeric values to severity labels
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Severity'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

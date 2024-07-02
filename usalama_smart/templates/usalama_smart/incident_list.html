@@ -1,0 +1,54 @@
+<!-- <!-- usalama_smart/incident_list.html -->
+
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+
+{% block title %}Incident List{% endblock %}
+
+{% block content %}
+  <h2>Incident List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Severity</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Reporter</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for incident in incidents %}
+      <tr>
+        <td><strong>{{ incident.title }}</strong></td>
+        <td>{{ incident.severity }}</td>
+        <td>{{ incident.date|date:"Y-m-d H:i" }}</td>
+        <td>{{ incident.description }}</td>
+        <td>
+          {% if incident.image %}
+            <img src="{{ incident.image.url }}" alt="Image for {{ incident.title }}" width="200">
+          {% else %}
+            No image
+          {% endif %}
+        </td>
+        <td>
+          {% if incident.reporter %}
+            {{ incident.reporter.username }}
+          {% else %}
+            Anonymous
+          {% endif %}
+        </td>
+        <td>
+          {% if incident.latitude and incident.longitude %}
+            {{ incident.latitude }}, {{ incident.longitude }}
+          {% else %}
+            No location
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

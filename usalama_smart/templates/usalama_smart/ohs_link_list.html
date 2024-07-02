@@ -1,0 +1,18 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}ohs links{% endblock %}
+{% block content %}
+<h1 class="header">OHS Regulations and Guidelines</h1>
+<ul class="link-list">
+    {% for link in links %}
+    <li class="link-item">
+        <a href="{{ link.url }}" class="link-title">{{ link.title }}</a>
+        <p class="link-description">{{ link.description }}</p>
+        <p class="link-date"><small>Added on {{ link.created_at }}</small></p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+
+    

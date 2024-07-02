@@ -1,0 +1,19 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Expert List{% endblock %}
+{% block content%}
+    <h1>Experts</h1>
+    <div class="expert-list">
+        {% for expert in experts %}
+            <div class="expert-card">
+                <img src="{{ expert.profile_picture.url }}" alt="{{ expert.name }}">
+                {% if request.user.is_staff %}
+                <p><a href="{% url 'usalama_smart:expert_dashboard' expert.pk %}">Expert's Dashboard</a></p>
+                {% endif %}
+                <h2><a href="{% url 'usalama_smart:expert_detail' expert.pk %}">{{ expert.name }}</a></h2>
+                <p>{{ expert.specialization }}</p>
+                <p>Rating: {{ expert.rating }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
