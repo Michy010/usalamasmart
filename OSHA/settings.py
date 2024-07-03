@@ -40,13 +40,7 @@ MEDIA_URL ='/media/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# SECRET_KEY = env('SECRET_KEY')
-# settings.py
-from django.core.management.utils import get_random_secret_key
-...
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', default=get_random_secret_key())  # <-- Updated!
-
+SECRET_KEY="django-insecure-bdt74-(ltd+#_=gt(=l&6!7une1pha4(4xh!2_0&p(35nzoceq"
 
 DEBUG = False
 ALLOWED_HOSTS = ['*']
@@ -154,15 +148,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
