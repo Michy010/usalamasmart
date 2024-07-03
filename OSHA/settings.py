@@ -15,12 +15,14 @@ import environ
 import dj_database_url
 
 import os
-import environ
 
-env = environ.Env( 
-    # set casting, default value
-    DEBUG=(bool, False),
-)
+from django.conf import settings
+from decouple import config
+
+
+
+env = environ.Env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,19 +40,16 @@ MEDIA_URL ='/media/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+# SECRET_KEY = env('SECRET_KEY')
+# settings.py
 from django.core.management.utils import get_random_secret_key
 ...
-
+# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str('SECRET_KEY', default=get_random_secret_key())  # <-- Updated!
 
-# SECRET_KEY = env('SECRET_KEY')
 
-
-
-
-
-DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'usalamasmart.fly.dev']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['https://usalamasmart.fly.dev/']
 
@@ -63,7 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'usalama_smart',
     'accounts',
@@ -112,10 +111,12 @@ WSGI_APPLICATION = 'OSHA.wsgi.application'
 # }
 
 
+import dj_database_url
+
 DATABASES = {
-    # read os.environ['DATABASE_URL']
-    'default': env.db('DATABASE_URL')  # <-- Updated!
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -152,10 +153,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# This production code might break development mode, so we check whether we're in DEBUG mode
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 
 # Default primary key field type
