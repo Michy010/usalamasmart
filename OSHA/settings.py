@@ -51,7 +51,7 @@ SECRET_KEY = env.str('SECRET_KEY', default=get_random_secret_key())  # <-- Updat
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://usalamasmart.fly.dev/']
+
 
 
 # Application definition
