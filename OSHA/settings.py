@@ -48,7 +48,7 @@ from django.core.management.utils import get_random_secret_key
 SECRET_KEY = env.str('SECRET_KEY', default=get_random_secret_key())  # <-- Updated!
 
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = ['https://usalamasmart.fly.dev/']
