@@ -42,7 +42,7 @@ MEDIA_URL ='/media/'
 
 SECRET_KEY="django-insecure-bdt74-(ltd+#_=gt(=l&6!7une1pha4(4xh!2_0&p(35nzoceq"
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
