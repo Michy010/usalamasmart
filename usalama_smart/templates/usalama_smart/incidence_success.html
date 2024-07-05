@@ -1,0 +1,12 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %}Consultation Success{% endblock %}
+{% block content %}
+<div class="consultation-success-page">
+    <h1 class="consultation-success-heading">Incident Submitted</h1>
+    <p class="consultation-success-message">
+        Your Incident has been submitted successfully.You can now return to home page.
+    </p>
+    <a href="{% url 'usalama_smart:home' %}" class="dashboard-button">Go to Home Page</a>
+</div>
+{% endblock %}

@@ -47,7 +47,10 @@ def report_incident(request):
             else:
                 incident.reporter = request.user
             incident.save()
-            return redirect('usalama_smart:incidence_list')
+            if request.user.is_superuser:
+                return redirect('usalama_smart:incidence_list')
+            else:
+                return redirect('usalama_smart:incidence_success')
     else:
         form = IncidentForm()
     return render(request, 'usalama_smart/report_incident.html', {'form': form})
@@ -56,6 +59,9 @@ def report_incident(request):
 def incident_list(request):
     incidents = Incident.objects.all()
     return render(request, 'usalama_smart/incident_list.html', {'incidents': incidents})
+
+def incidence_success(request):
+    return render(request, 'usalama_smart/incidence_success.html')
 
 
 def ohs_link_list(request):
@@ -134,6 +140,7 @@ def expert_detail(request, pk):
         if form.is_valid():
             consultation = form.save(commit=False)
             consultation.expert = expert
+            consultation.user = request.user
             consultation.save()
             return redirect('usalama_smart:consultation_success')
     else:
@@ -156,13 +163,13 @@ def expert_dashboard(request, expert_id):
             if consultation.status == 'Accepted':
                 message = {
                     'status':'accepted',
-                    'message':f"Your consultation with {expert.name} has been accepted. Please copy the link below and keep it safe",
+                    'message':f"Your consultation {expert.name} has been accepted. Please copy the link below and keep it safe",
                     'meet_link': consultation.meeting_link
                 }
             else:
                 message = {
                     "status": "Declined",
-                    "message": f"Your consultation with {expert.name} has been declined.",
+                    "message": f"Your consultation {expert.name} has been declined.",
                     "reason": consultation.decline_message
                 }
             return JsonResponse(message)

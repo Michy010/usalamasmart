@@ -24,5 +24,6 @@ urlpatterns = [
     path('success/', views.consultation_success, name='consultation_success'),
     path('my-consultations/', views.user_dashboard, name='user_dashboard'),
     path('consultation/accept/<int:consultation_id>/', views.accept_consultation, name='accept_consultation'),
+    path('incidence_success/', views.incidence_success, name='incidence_success'),
     path('logout/', auth_views.LogoutView.as_view(), name= 'logout'),
 ]

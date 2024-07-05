@@ -23,7 +23,7 @@
             <i id="menu-icon" class="fas fa-bars hamburger-icon"></i>
             <ul>
                 <li><a href="{% url 'usalama_smart:home' %}">Home</a></li>
-                {% if request.user.is_staff or is_superuser %}
+                {% if request.user.is_superuser %}
                 <li><a href="{% url 'usalama_smart:register_lawyer' %}">Register Lawyer</a></li>
                 {% endif %}
 
@@ -45,7 +45,7 @@
 
                 <li><a href="{% url 'usalama_smart:ohs_link_list' %}">OHS regulations & guidelines</a></li>
 
-                {% if request.user.is_staff or is_superuser %}
+                {% if request.user.is_superuser %}
                 <li><a href="{% url 'usalama_smart:incidence_list' %}">Incidence List</a></li>
                 {% endif %}
 
