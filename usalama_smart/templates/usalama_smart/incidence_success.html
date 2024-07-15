@@ -1,12 +1,13 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}Consultation Success{% endblock %}
+{% load i18n %}
+{% block title %} Successfully Incident{% endblock %}
 {% block content %}
 <div class="consultation-success-page">
-    <h1 class="consultation-success-heading">Incident Submitted</h1>
+    <h1 class="consultation-success-heading">{% trans "Incident Submitted" %}</h1>
     <p class="consultation-success-message">
-        Your Incident has been submitted successfully.You can now return to home page.
+        {% trans "Your incident report has been submitted successfully. You can now return to the home page." %}
     </p>
-    <a href="{% url 'usalama_smart:home' %}" class="dashboard-button">Go to Home Page</a>
+    <a href="{% url 'usalama_smart:home' %}" class="dashboard-button">{% trans "Go to Home Page" %}</a>
 </div>
 {% endblock %}

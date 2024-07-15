@@ -1,21 +1,25 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}Register Lawyer{% endblock %}
-{% block content%}
+{% load i18n %}
+{% block title %}{% trans "Register Lawyer" %}{% endblock %}
+{% block content %}
 <div class="container4">
     <header class="bg-primary">
-        <h1>Lawyers Directory</h1>
+        <h1>{% trans "Lawyers Directory" %}</h1>
     </header>
     {% for lawyer in lawyers %}
         <article class="article">
             <h2>{{ lawyer.name }}</h2>
-            <p>Email: <a href="mailto:{{ lawyer.email }}">{{ lawyer.email }}</a></p>
-            <p>WhatsApp: <a href="https://wa.me/{{ lawyer.whatsapp_number }}" target="_blank">Message on WhatsApp</a></p>
-            <p>Phone: <a href="tel:{{ lawyer.mobile_phone }}">{{ lawyer.mobile_phone }}</a></p>
+            {% if lawyer.profile_picture %}
+                <img src="{{ lawyer.profile_picture.url }}" alt="{{ lawyer.name }}" class="profile-picture">
+            {% endif %}
+            <p>{% trans "Email" %}: <a href="mailto:{{ lawyer.email }}">{{ lawyer.email }}</a></p>
+            <p>{% trans "WhatsApp" %}: <a href="https://wa.me/{{ lawyer.whatsapp_account }}" target="_blank">{% trans "Message on WhatsApp" %}</a></p>
+            <p>{% trans "Phone" %}: <a href="tel:{{ lawyer.mobile_phone }}">{{ lawyer.mobile_phone }}</a></p>
             <hr class="hr">
         </article>
     {% empty %}
-        <p class="text-muted">No lawyers found.</p>
+        <p class="text-muted">{% trans "No lawyers found." %}</p>
     {% endfor %}
 </div>
 {% endblock %}

@@ -1,20 +1,36 @@
 {% extends 'usalama_smart/base.html' %}
-{% load static %}
-{% block title %}Training Sessions{% endblock %}
-{% block content%}
+{% load static i18n %}
+{% block title %}{% trans "Training Sessions" %}{% endblock %}
+{% block content %}
     <div class="container">
-        <h1>Training Sessions</h1>
+        <h1>{% trans "Training Sessions" %}</h1>
         <ul class="content-list">
             {% for content in contents %}
                 <li class="content-item">
                     <h2>{{ content.title }}</h2>
-                    <p class="timestamp">Posted on {{ content.created_at|date:"F j, Y" }}</p>
+                    <p class="timestamp">{% trans "Posted on" %} {{ content.created_at|date:"F j, Y" }}</p>
+                    
                     {% if content.content_type == 'text' %}
                         <p>{{ content.text }}</p>
+                    
                     {% elif content.content_type == 'image' %}
-                        <img src="{{ content.image.url }}" alt="Image">
+                        <img src="{{ content.image.url }}" alt="{% trans 'Image' %}">
+                    
                     {% elif content.content_type == 'video' %}
-                        <a href="{{ content.video_url }}" target="_blank">Watch Video</a>
+                        <iframe width="560" height="315" src="{{ content.video_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+                    
+                    {% elif content.content_type == 'mixed' %}
+                        <p>{{ content.text }}</p>
+                        {% if content.image %}
+                            <img src="{{ content.image.url }}" alt="{% trans 'Image' %}">
+                        {% endif %}
+                        {% if content.video_url %}
+                            <iframe width="560" height="315" src="{{ content.video_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+                        {% endif %}
+                    
+                    {% else %}
+                        <p>{% trans "Unsupported content type" %}</p>
+                    
                     {% endif %}
                 </li>
             {% endfor %}

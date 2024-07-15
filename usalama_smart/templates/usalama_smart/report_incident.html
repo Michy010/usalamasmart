@@ -1,28 +1,29 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}Report{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Report" %}{% endblock %}
 {% block content %}
 
 <section class="body3">
   <div class="form-container">
-    <h1 class="h1-1">Report an Incident</h1>
+    <h1 class="h1-1">{% trans "Report an Incident" %}</h1>
     <form id="incidentForm" method="POST" enctype="multipart/form-data" action="">
       {% csrf_token %}
       
       <div class="input-group">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" id="title" name="title" class="form-input" placeholder="Enter the incident title" required>
+        <label for="title" class="form-label">{% trans "Title" %}</label>
+        <input type="text" id="title" name="title" class="form-input" placeholder="{% trans "Enter the incident title" %}" required>
       </div>
       
       <div class="input-group">
-        <label for="description" class="form-label">Description</label>
-        <textarea id="description" name="description" class="form-textarea" placeholder="Describe the incident" rows="5" required></textarea>
+        <label for="description" class="form-label">{% trans "Description" %}</label>
+        <textarea id="description" name="description" class="form-textarea" placeholder="{% trans "Describe the incident" %}" rows="5" required></textarea>
       </div>
       
       <div class="input-group">
-        <label for="severity" class="form-label">Severity</label>
+        <label for="severity" class="form-label">{% trans "Severity" %}</label>
         <select id="severity" name="severity" class="form-select" required>
-          <option value="">Select Severity</option>
+          <option value="">{% trans "Select Severity" %}</option>
           {% for severity, label in form.severity.field.choices %}
             <option value="{{ severity }}">{{ label }}</option>
           {% endfor %}
@@ -30,9 +31,9 @@
       </div>
       
       <div class="input-group">
-        <label for="reporter" class="form-label">Reporter</label>
+        <label for="reporter" class="form-label">{% trans "Reporter" %}</label>
         <select id="reporter" name="reporter" class="form-select">
-          <option value="">Select Reporter</option>
+          <option value="">{% trans "Select Reporter" %}</option>
           {% for reporter in form.fields.reporter.queryset %}
             <option value="{{ reporter.id }}">{{ reporter }}</option>
           {% endfor %}
@@ -40,19 +41,19 @@
       </div>
       
       <div class="input-group">
-        <label for="image" class="form-label">Upload Image</label>
+        <label for="image" class="form-label">{% trans "Upload Image" %}</label>
         <input type="file" id="image" name="image" class="form-file" accept="image/*">
       </div>
       
       <div class="input-group checkbox-group">
         <input type="checkbox" id="is_anonymous" name="is_anonymous" class="form-checkbox">
-        <label for="is_anonymous" class="form-label">Report Anonymously</label>
+        <label for="is_anonymous" class="form-label">{% trans "Report Anonymously" %}</label>
       </div>
       
       <input type="hidden" id="latitude" name="latitude">
       <input type="hidden" id="longitude" name="longitude">
 
-      <button type="button" onclick="submitForm()" class="form-button">Submit</button>
+      <button type="button" onclick="submitForm()" class="form-button">{% trans "Submit" %}</button>
     </form>
   </div>
 </section>

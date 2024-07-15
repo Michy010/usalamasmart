@@ -1,20 +1,29 @@
+<!-- templates/usalama_smart/all_updates.html -->
 {% extends 'usalama_smart/base.html' %}
-{% load static %}
-{% block title %}All updates{% endblock %}
-{% block content%}
+{% load static i18n %}
+{% block title %}{% trans "All Updates" %}{% endblock %}
+{% block content %}
 <div class="container2">
     <header class="bg-primary text-center">
-        <h1>All Updates</h1>
+        <h1>{% trans "All Updates" %}</h1>
     </header>
     {% for update in updates %}
-        <article>
+        <article class="update-article">
             <h2 class="update-title">{{ update.title }}</h2>
             <p class="update-content">{{ update.content }}</p>
-            <small class="update-author">Posted by {{ update.author.username }} on {{ update.created_at }}</small>
+            {% if update.image %}
+                <img src="{{ update.image.url }}" alt="{{ update.title }}" class="update-image"><br>
+            {% endif %}
+            {% if update.video_url %}
+                <div class="video-container">
+                    <iframe width="560" height="315" src="{{ update.video_url }}" frameborder="0" allowfullscreen></iframe><br>
+                </div>
+            {% endif %}
+            <small class="update-author">{% trans "Posted by" %} {{ update.author.username }} {% trans "on" %} {{ update.created_at }}</small>
             <hr class="hr">
         </article>
     {% empty %}
-        <p class="text-muted">No updates yet.</p>
+        <p class="text-muted">{% trans "No updates yet." %}</p>
     {% endfor %}
 </div>
 {% endblock %}

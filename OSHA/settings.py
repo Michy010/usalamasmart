@@ -27,6 +27,12 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+LOCALE_PATHS = [
+   os.path.join(BASE_DIR, 'locale')
+]
+
+LANGUAGE_SESSION_KEY = 'django_language'
+
 # Take environment variables from .env file
 environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 
@@ -66,6 +72,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,7 +143,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    ('en', 'English'),
+    ('sw', 'Swahili'),
+]
+
+TIME_ZONE = 'Africa/Dar_es_Salaam'
 
 USE_I18N = True
 

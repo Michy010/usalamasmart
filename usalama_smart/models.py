@@ -1,16 +1,19 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class Content(models.Model):
     CONTENT_TYPES = (
-        ('text', 'Text'),
-        ('image', 'Image'),
-        ('video', 'Video'),
+        ('text', _('Text')),
+        ('image', _('Image')),
+        ('video', _('Video')),
+        ('mixed', _('Mixed')),
     )
+
     title = models.CharField(max_length=255, default='Title')
-    content_type = models.CharField(max_length=5, choices=CONTENT_TYPES)
+    content_type = models.CharField(max_length=5, choices=CONTENT_TYPES, blank=True, null=True)
     text = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     video_url = models.URLField(blank=True, null=True)
@@ -18,6 +21,7 @@ class Content(models.Model):
 
     def __str__(self):
         return self.title
+
     
 
 class Incident(models.Model):
@@ -55,6 +59,8 @@ class OHSLink(models.Model):
 class Update(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
+    image = models.ImageField(upload_to='updates/images/', blank=True, null=True)
+    video_url = models.URLField(blank=True, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -67,6 +73,8 @@ class Lawyer(models.Model):
     email = models.EmailField()
     whatsapp_account = models.CharField(max_length=20)
     mobile_phone = models.CharField(max_length=15)
+    profile_picture = models.ImageField(upload_to='lawyer_profiles/', blank=True, null=True)
+
 
     def __str__(self):
         return self.name

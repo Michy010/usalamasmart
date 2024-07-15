@@ -1,6 +1,6 @@
 {% extends 'usalama_smart/base.html' %}
-{% load static %}
-{% block title %}Expert Details{% endblock %}
+{% load static i18n %}
+{% block title %}{% trans "Expert Details" %}{% endblock %}
 {% block content %}
     <div class="expert-detail-page">
         <div class="expert-detail-container">
@@ -10,11 +10,11 @@
                 <p class="expert-bio">{{ expert.bio }}</p>
             </div>
             <div class="consultation-form-container">
-                <h2 class="consultation-heading">Book a Consultation</h2>
+                <h2 class="consultation-heading">{% trans "Book a Consultation" %}</h2>
                 <form method="post" class="consultation-form">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button type="submit" class="book-button">Book</button>
+                    <button type="submit" class="book-button">{% trans "Book" %}</button>
                 </form>
             </div>
         </div>

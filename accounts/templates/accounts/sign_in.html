@@ -1,28 +1,46 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}Sign In{% endblock %}
-{% block content%}
+{% load i18n %}
+{% block title %}{% trans "Sign In" %}{% endblock %}
+{% block content %}
 <div class="body1">
   <div class="signin-container">
-    <h1 class="h11">Welcome Back!</h1>
+    <h1 class="h11">{% trans "Welcome Back!" %}</h1>
     <form action="" method="POST">
       {% csrf_token %}
       <div class="input-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <label for="username">{% trans "Username:" %}</label>
+        <input type="text" id="username" name="username" placeholder="{% trans "Enter your username" %}" required>
       </div>
-      <div class="input-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      <div class="input-group password-container">
+        <label for="password">{% trans "Password:" %}</label>
+        <input type="password" id="password" name="password" placeholder="{% trans "Enter your password" %}" required>
+        <i class="fas fa-eye-slash toggle-password"></i>
       </div>
-      <button type="submit">Sign In</button>
+      <button type="submit">{% trans "Sign In" %}</button>
     </form>
 
     {% for message in messages %}
       <p>{{ message }}</p>
     {% endfor %}
     
-    <p class="signup-link">Don't have an account? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
+    <p class="signup-link">{% trans "Don't have an account?" %} <a href="{% url 'accounts:signup' %}">{% trans "Sign Up" %}</a></p>
   </div>
 </div>
+
+<script>
+    document.querySelector('.toggle-password').addEventListener('click', function (e) {
+        const passwordField = document.getElementById('password');
+        const icon = this;
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordField.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+</script>
 {% endblock %}

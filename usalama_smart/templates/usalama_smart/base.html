@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,59 +7,60 @@
     <link rel="stylesheet" href="{% static 'usalama_smart/main.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>{% block title %}Document{% endblock %}</title>
+    <title>{% block title %}{% trans "Document" %}{% endblock %}</title>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
             <a href="{% url 'usalama_smart:home' %}">
-                <img src="{% static 'usalama_smart/img/logo.png' %}" alt="Logo">
+                <img src="{% static 'usalama_smart/img/logo.png' %}" alt="{% trans "Logo" %}">
             </a>
         </div>
         <div class="company-name">
-            <!-- <p>USALAMA SMART</p> -->
+            <!-- <p>{% trans "USALAMA SMART" %}</p> -->
         </div>
         <div class="nav-menu">
             <i id="menu-icon" class="fas fa-bars hamburger-icon"></i>
             <ul>
-                <li><a href="{% url 'usalama_smart:home' %}">Home</a></li>
+                <li><a href="{% url 'usalama_smart:home' %}">{% trans "Home" %}</a></li>
                 {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:register_lawyer' %}">Register Lawyer</a></li>
+                <li><a href="{% url 'usalama_smart:register_lawyer' %}">{% trans "Register Lawyer" %}</a></li>
                 {% endif %}
 
                 {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:post_update' %}">Post Updates</a></li>
+                <li><a href="{% url 'usalama_smart:post_update' %}">{% trans "Post Updates" %}</a></li>
                 {% endif %}
 
                 {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:add_ohs_link' %}">Add OHS</a></li>
+                <li><a href="{% url 'usalama_smart:add_ohs_link' %}">{% trans "Add OHS" %}</a></li>
                 {% endif %}
 
                 {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:content_create' %}">create Session</a></li>
-                {% endif %}
-                 
-                {% if request.user.is_authenticated %}
-                <li><a href="{% url 'usalama_smart:user_dashboard' %}">User Dashboard</a></li>
-                {% endif %}
-
-                <li><a href="{% url 'usalama_smart:ohs_link_list' %}">OHS regulations & guidelines</a></li>
-
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:incidence_list' %}">Incidence List</a></li>
+                <li><a href="{% url 'usalama_smart:content_create' %}">{% trans "Create Session" %}</a></li>
                 {% endif %}
 
                 {% if request.user.is_authenticated %}
-<li>
-    <form method="post" action="{% url 'usalama_smart:logout' %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
-            Logout
-        </button>
-    </form>
-</li>
-{% endif %}
+                <li><a href="{% url 'usalama_smart:user_dashboard' %}">{% trans "User Dashboard" %}</a></li>
+                {% endif %}
 
+                <li><a href="{% url 'usalama_smart:ohs_link_list' %}">{% trans "OHS regulations & guidelines" %}</a></li>
+
+                <li><a href="{% url 'usalama_smart:about_us' %}">{% trans "About Us" %}</a></li>
+
+                {% if request.user.is_superuser %}
+                <li><a href="{% url 'usalama_smart:incidence_list' %}">{% trans "Incidence List" %}</a></li>
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+                <li>
+                    <form method="post" action="{% url 'usalama_smart:logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
+                            {% trans "Logout" %}
+                        </button>
+                    </form>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -68,49 +69,48 @@
     {% endblock %}
 
     <div class="stakeholder-section">
-        <h2>Our Stakeholders</h2>
+        <h2>{% trans "Our Stakeholders" %}</h2>
         <div class="stakeholder-grid">
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/osha-logo.webp' %}" alt="Stakeholder 1">
+                <img src="{% static 'usalama_smart/img/osha-logo.webp' %}" alt="{% trans "Stakeholder 1" %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/wcf.jpg' %}" alt="Stakeholder 2">
+                <img src="{% static 'usalama_smart/img/wcf.jpg' %}" alt="{% trans "Stakeholder 2" %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/logo-ilo.png' %}" alt="Stakeholder 3">
+                <img src="{% static 'usalama_smart/img/logo-ilo.png' %}" alt="{% trans "Stakeholder 3" %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/MUHAS.png' %}" alt="Stakeholder 4">
+                <img src="{% static 'usalama_smart/img/MUHAS.png' %}" alt="{% trans "Stakeholder 4" %}">
             </div>
         </div>
     </div>
 
-    <!-- contact_section.html -->
     <div class="contact-section">
-        <h2>Contact Us</h2>
+        <h2>{% trans "Contact Us" %}</h2>
         <div class="contact-grid">
             <div class="contact-item">
                 <a href="tel:+255757280637">
                     <i class="fas fa-phone"></i>
-                    <p>+255 757 280 637</p>
+                    <p>{% trans "+255 757 280 637" %}</p>
                 </a>
             </div>
             <div class="contact-item">
                 <a href="https://wa.me/0757280637" target="_blank">
                     <i class="fab fa-whatsapp"></i>
-                    <p>WhatsApp</p>
+                    <p>{% trans "WhatsApp" %}</p>
                 </a>
             </div>
             <div class="contact-item">
                 <a href="https://www.instagram.com/yourusername" target="_blank">
                     <i class="fab fa-instagram"></i>
-                    <p>Instagram</p>
+                    <p>{% trans "Instagram" %}</p>
                 </a>
             </div>
             <div class="contact-item">
                 <a href="https://x.com/yourusername" target="_blank">
                     <i class="fab fa-x-twitter"></i>
-                    <p>X</p>
+                    <p>{% trans "X" %}</p>
                 </a>
             </div>
         </div>
@@ -118,19 +118,19 @@
 
     <footer class="footer-section">
         <div class="footer-content">
-            <p>&copy; 2024 Usalama Smart. All rights reserved.</p>
-            <p>Produced with love by <span class="highlight">Msita</span></p>
+            <p>&copy; 2024 Usalama Smart. {% trans "All rights reserved." %}</p>
+            <p>{% trans "Produced with love by" %} <span class="highlight">Msita</span></p>
         </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $("#menu-icon").click(function () {
-            $(".nav-menu ul").toggleClass("show");
+    <script>
+        $(document).ready(function () {
+            $("#menu-icon").click(function () {
+                $(".nav-menu ul").toggleClass("show");
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

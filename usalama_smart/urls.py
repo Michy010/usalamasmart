@@ -7,6 +7,7 @@ app_name = 'usalama_smart'
 urlpatterns = [
     path('', views.index, name='home'),
     path('details/', views.details, name='details'),
+    path('about/', views.about_us, name='about_us'),
     path('create/', views.content_create_view, name='content_create'),
     path('content_list/', views.content_list_view, name='content_list'),
     path('report_incidence/', views.report_incident, name='report_incidence'),
@@ -26,4 +27,8 @@ urlpatterns = [
     path('consultation/accept/<int:consultation_id>/', views.accept_consultation, name='accept_consultation'),
     path('incidence_success/', views.incidence_success, name='incidence_success'),
     path('logout/', auth_views.LogoutView.as_view(), name= 'logout'),
+    path('set_language/', views.set_language, name='set_language'),
+
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='usalama_smart/change_password.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='usalama_smart/password_change_done.html'), name='password_change_done'),
 ]

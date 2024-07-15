@@ -1,29 +1,46 @@
 from django.shortcuts import render, redirect, get_object_or_404, redirect
-from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm
+from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm, UpdateForm
 from .models import Content, Incident, OHSLink, Update, Lawyer, Expert, Consultation
 from django.utils.dateformat import DateFormat
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.urls import reverse
+from django.conf import settings
+from django.utils import translation
+from django.utils.translation import gettext as _
+from django.core.files.storage import FileSystemStorage
 import json
 
 
 # Create your views here.
-def index (request):
-    return render (request, 'usalama_smart/index.html')
+def index(request):
+    return render(request, 'usalama_smart/index.html')
 
-def details (request):
-    return render (request, 'usalama_smart/details.html')
+def about_us(request):
+    return render(request, 'usalama_smart/about_us.html')
+
+def details(request):
+    return render(request, 'usalama_smart/details.html')
 
 def content_create_view(request):
     if request.method == 'POST':
         form = ContentForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            content = form.save(commit=False)
+            
+            # Check if content type is 'mixed' and handle accordingly
+            if content.content_type == 'mixed':
+                # Ensure both text and at least one of image or video_url is provided
+                if not content.text or (not content.image and not content.video_url):
+                    form.add_error(None, _("For 'Mixed' content type, provide text and either an image or video URL."))
+                    return render(request, 'usalama_smart/content_form.html', {'form': form})
+            
+            content.save()
             return redirect('usalama_smart:content_list')
     else:
         form = ContentForm()
+    
     return render(request, 'usalama_smart/content_form.html', {'form': form})
 
 def content_list_view(request):
@@ -33,7 +50,7 @@ def content_list_view(request):
 
 def report_incident(request):
     if request.method == 'POST':
-        form = IncidentForm(request.POST, request.FILES)
+        form = IncidentForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             incident = form.save(commit=False)
             latitude = request.POST.get('latitude')
@@ -52,8 +69,8 @@ def report_incident(request):
             else:
                 return redirect('usalama_smart:incidence_success')
     else:
-        form = IncidentForm()
-    return render(request, 'usalama_smart/report_incident.html', {'form': form})
+        form = IncidentForm(user=request.user)
+    return render(request, 'usalama_smart/report_incident.html',{'form':form})
 
 
 def incident_list(request):
@@ -80,12 +97,15 @@ def add_ohs_link(request):
 
 def post_update(request):
     if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        update = Update(title=title, content=content, author=request.user)
-        update.save()
-        return redirect('usalama_smart:all_updates')
-    return render(request, 'usalama_smart/post_update.html')
+        form = UpdateForm(request.POST, request.FILES)
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.author = request.user
+            update.save()
+            return redirect('usalama_smart:all_updates')
+    else:
+        form = UpdateForm()
+    return render(request, 'usalama_smart/post_update.html', {'form': form})
 
 def all_updates(request):
     updates = Update.objects.all().order_by('-created_at') 
@@ -98,11 +118,21 @@ def register_lawyer(request):
         email = request.POST.get('email')
         whatsapp_account = request.POST.get('whatsapp_account')
         mobile_phone = request.POST.get('mobile_phone')
+        profile_picture = request.FILES.get('profile_picture')
+
+        if profile_picture:
+            fs = FileSystemStorage()
+            filename = fs.save(profile_picture.name, profile_picture)
+            profile_picture_url = fs.url(filename)
+        else:
+            profile_picture_url = None
+
         Lawyer.objects.create(
             name=name,
             email=email,
             whatsapp_account=whatsapp_account,
-            mobile_phone=mobile_phone
+            mobile_phone=mobile_phone,
+            profile_picture=profile_picture
         )
         return redirect('usalama_smart:view_lawyers') 
     return render(request, 'usalama_smart/register_lawyer.html')
@@ -162,15 +192,15 @@ def expert_dashboard(request, expert_id):
 
             if consultation.status == 'Accepted':
                 message = {
-                    'status':'accepted',
-                    'message':f"Your consultation {expert.name} has been accepted. Please copy the link below and keep it safe",
+                    'status': 'accepted',
+                    'message': _("Your consultation with {expert_name} has been accepted. Please copy the link below and keep it safe").format(expert_name=expert.name),
                     'meet_link': consultation.meeting_link
                 }
             else:
                 message = {
-                    "status": "Declined",
-                    "message": f"Your consultation {expert.name} has been declined.",
-                    "reason": consultation.decline_message
+                    'status': 'Declined',
+                    'message': _("Your consultation with {expert_name} has been declined.").format(expert_name=expert.name),
+                    'reason': consultation.decline_message
                 }
             return JsonResponse(message)
             
@@ -184,31 +214,31 @@ def expert_dashboard(request, expert_id):
 def consultation_success(request):
     return render(request, 'usalama_smart/consultation_success.html')
 
-
-
 @login_required
 def user_dashboard(request):
     consultations = Consultation.objects.filter(user=request.user).order_by('-consultation_date')
     return render(request, 'usalama_smart/user_dashboard.html', {'consultations': consultations})
 
-
 def accept_consultation(request, consultation_id):
     consultation = get_object_or_404(Consultation, id=consultation_id)
     
     if consultation.status == 'Accepted':
-        message = f"Your consultation with {consultation.expert.name} has been accepted.\n"
-        message += f"Here is your Google Meet link: {consultation.meeting_link}\n"
+        message = _("Your consultation with {expert_name} has been accepted.\nHere is your Google Meet link: {meet_link}\n").format(
+            expert_name=consultation.expert.name, meet_link=consultation.meeting_link)
     else:
-        message = f"Your consultation with {consultation.expert.name} has been declined.\n"
-        message += f"Reason: {consultation.decline_message}\n"
+        message = _("Your consultation with {expert_name} has been declined.\nReason: {decline_message}\n").format(
+            expert_name=consultation.expert.name, decline_message=consultation.decline_message)
 
     return redirect(reverse('usalama_smart:consultation_success', kwargs={'message': message}))
 
+
+def set_language(request):
+    user_language = request.GET.get('language', 'en')
+    translation.activate(user_language)
+    request.session[settings.LANGUAGE_SESSION_KEY] = user_language
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 # @login_required
 # def logout_page (request):
 #     logout (request)
 #     return redirect ('/')
-
-
-

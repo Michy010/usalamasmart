@@ -1,21 +1,22 @@
 {% extends 'usalama_smart/base.html' %}
-{% load static %}
+{% load static i18n %}
+
 {% block title %}{{ expert.name }}'s Dashboard{% endblock %}
-{% block content%}
+{% block content %}
 <body class="expert-dashboard-page">
     <div class="dashboard-container">
-        <h1>{{ expert.name }}'s Dashboard</h1>
-        <h2>Upcoming Consultations</h2>
+        <h1>{{ expert.name }}'s {% trans "Dashboard" %}</h1>
+        <h2>{% trans "Upcoming Consultations" %}</h2>
         <div class="consultation-list">
             {% if consultations %}
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>User</th>
-                            <th>Message</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "User" %}</th>
+                            <th>{% trans "Message" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Actions" %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +33,7 @@
                                         {{ form.status }}
                                         {{ form.meeting_link }}
                                         {{ form.decline_message }}
-                                        <button type="submit">Submit</button>
+                                        <button type="submit">{% trans "Submit" %}</button>
                                     </form>
                                 </td>
                             </tr>
@@ -40,7 +41,7 @@
                     </tbody>
                 </table>
             {% else %}
-                <p>No upcoming consultations.</p>
+                <p>{% trans "No upcoming consultations." %}</p>
             {% endif %}
         </div>
     </div>

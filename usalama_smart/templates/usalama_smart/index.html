@@ -1,11 +1,28 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}Home{% endblock %}
-{% block content%}
+{% load i18n %}
+{% block title %}{% trans "Home" %}{% endblock %}
+{% block content %}
 <section class="home-page">
     <div class="header-text">
-        <h3>USALAMA SMART</h3><br>
-        <a href="{% url 'accounts:signin' %}">GET STARTED</a>
+        <h3>{% trans "USALAMA SMART" %}</h3><br>
+        <a href="{% url 'accounts:signin' %}">{% trans "GET STARTED" %}</a><br>
+        <ol>
+          <li class="">
+            <a class="nav-link nav-user mr-0 waves-eff" href="/en{{ request.get_full_path|slice:'3:' }}" role="button">
+              <span class="pro-user-name ml-1">
+                {% trans "English" %}
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link nav-user mr-0 waves-eff" href="/sw{{ request.get_full_path|slice:'3:' }}" role="button">
+              <span class="pro-user-name ml-1">
+                {% trans "Swahili" %}
+              </span>
+            </a>
+           </li>
+        </ol>
     </div>
 </section>
 {% endblock %}

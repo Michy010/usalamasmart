@@ -1,20 +1,24 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
-{% block title %}My Consultations{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "My Consultations" %}{% endblock %}
 {% block content %}
     <div class="user-dashboard-page">
-        <h1 class="dashboard-heading">My Consultations</h1>
+        <h1 class="dashboard-heading">{% trans "My Consultations" %}</h1>
+        <button class="btn1-1 reset-password-button">
+            <a href="{% url 'usalama_smart:password_change' %}">{% trans "Reset Your Password" %}</a>
+        </button>
         <div class="consultations-list">
             {% for consultation in consultations %}
                 <div class="consultation-item">
-                    <h2>Consultation with {{ consultation.expert.name }}</h2>
-                    <p>Status: {{ consultation.status }}</p>
+                    <h2>{% trans "Consultation with" %} {{ consultation.expert.name }}</h2>
+                    <p>{% trans "Status" %}: {{ consultation.status }}</p>
                     {% if consultation.status == 'Accepted' %}
-                        <p>Meeting Link: <a href="{{ consultation.meeting_link }}">{{ consultation.meeting_link }}</a></p>
+                        <p>{% trans "Meeting Link" %}: <a href="{{ consultation.meeting_link }}">{{ consultation.meeting_link }}</a></p>
                     {% elif consultation.status == 'Declined' %}
-                        <p>Decline Message: {{ consultation.decline_message }}</p>
+                        <p>{% trans "Decline Message" %}: {{ consultation.decline_message }}</p>
                     {% endif %}
-                    <p>Date: {{ consultation.consultation_date }}</p>
+                    <p>{% trans "Date" %}: {{ consultation.consultation_date }}</p>
                 </div>
             {% endfor %}
         </div>

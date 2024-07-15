@@ -1,16 +1,31 @@
 {% extends 'usalama_smart/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}Post Update{% endblock %}
-{% block content%}
+{% block content %}
 <div class="container">
     <header class="bg-primary text-center">
-        <h1>Post Update</h1>
+        <h1>{% trans "Post Update" %}</h1>
     </header>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="title" class="form-control" placeholder="Title"><br>
-        <textarea name="content" class="form-control" placeholder="Content"></textarea><br>
-        <button type="submit" class="btn">Post Update</button>
+        <div class="form-group">
+            <label for="id_title">{% trans "Title" %}</label>
+            <input type="text" name="title" id="id_title" class="form-control" placeholder="{% trans "Title" %}" required><br>
+        </div>
+        <div class="form-group">
+            <label for="id_content">{% trans "Content" %}</label>
+            <textarea name="content" id="id_content" class="form-control" placeholder="{% trans "Content" %}" required></textarea><br>
+        </div>
+        <div class="form-group">
+            <label for="id_image">{% trans "Upload Image" %}:</label>
+            <input type="file" name="image" id="id_image" accept="image/*" class="form-control"><br>
+        </div>
+        <div class="form-group">
+            <label for="id_video_url">{% trans "Enter Video URL" %}:</label>
+            <input type="url" name="video_url" id="id_video_url" class="form-control" placeholder="{% trans "Enter video URL" %}"><br>
+        </div>
+        <button type="submit" class="btn btn-primary">{% trans "Post Update" %}</button>
     </form>
 </div>
 {% endblock %}

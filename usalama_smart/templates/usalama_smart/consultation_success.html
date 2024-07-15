@@ -1,12 +1,13 @@
 {% extends 'usalama_smart/base.html' %}
-{% load static %}
-{% block title %}Consultation Success{% endblock %}
+{% load static i18n %}
+
+{% block title %}{% trans "Consultation Success" %}{% endblock %}
 {% block content %}
 <div class="consultation-success-page">
-    <h1 class="consultation-success-heading">Consultation Request Submitted</h1>
+    <h1 class="consultation-success-heading">{% trans "Consultation Request Submitted" %}</h1>
     <p class="consultation-success-message">
-        Your consultation request has been submitted successfully. Please visit your dashboard to check if it has been accepted or is still pending.
+        {% trans "Your consultation request has been submitted successfully. Please visit your dashboard to check if it has been accepted or is still pending." %}
     </p>
-    <a href="{% url 'usalama_smart:user_dashboard' %}" class="dashboard-button">Go to My Dashboard</a>
+    <a href="{% url 'usalama_smart:user_dashboard' %}" class="dashboard-button">{% trans "Go to My Dashboard" %}</a>
 </div>
 {% endblock %}

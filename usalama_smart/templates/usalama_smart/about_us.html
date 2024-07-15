@@ -1,0 +1,14 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static i18n %}
+{% block title %}{% trans "About Us" %}{% endblock %}
+{% block content %}
+<div class="container">
+    <header class="header">
+        <h1>{% trans "About Usalama Smart" %}</h1>
+    </header>
+    <section class="content">
+        <p>{% trans "Usalama Smart is an app designed to enhance occupational health and safety within workplaces. The app facilitates real-time communication between employees and safety managers, ensuring quick response to potential hazards and compliance with safety regulations." %}</p>
+        <p>{% trans "Our mission is to innovate and implement smart solutions that streamline the reporting of workplace injuries, enhance the accuracy of occupational health data, and empower authorities and organizations with reliable statistics to improve workplace safety standards and policies." %}</p>
+    </section>
+</div>
+{% endblock %}
