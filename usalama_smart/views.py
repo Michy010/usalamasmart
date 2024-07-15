@@ -29,9 +29,7 @@ def content_create_view(request):
         if form.is_valid():
             content = form.save(commit=False)
             
-            # Check if content type is 'mixed' and handle accordingly
             if content.content_type == 'mixed':
-                # Ensure both text and at least one of image or video_url is provided
                 if not content.text or (not content.image and not content.video_url):
                     form.add_error(None, _("For 'Mixed' content type, provide text and either an image or video URL."))
                     return render(request, 'usalama_smart/content_form.html', {'form': form})
@@ -237,8 +235,3 @@ def set_language(request):
     translation.activate(user_language)
     request.session[settings.LANGUAGE_SESSION_KEY] = user_language
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-# @login_required
-# def logout_page (request):
-#     logout (request)
-#     return redirect ('/')

@@ -1213,8 +1213,8 @@ img{
 
 .reset-password-button {
   position: absolute;
-  top: 20px;
-  right: 20px; 
+  top: 4px;
+  right: 10px; 
   background-color: #007bff;
   color: white; 
   border: none;

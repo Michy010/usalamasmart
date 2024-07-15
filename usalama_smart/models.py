@@ -95,7 +95,7 @@ class Consultation(models.Model):
     user_name = models.CharField(max_length=100)
     consultation_date = models.DateTimeField()
     message = models.TextField()
-    status = models.CharField(max_length=20, default='Pending')  # 'Accepted', 'Declined', 'Pending'
+    status = models.CharField(max_length=20, default='Pending')
     meeting_link = models.URLField(blank=True, null=True)
     decline_message = models.TextField(blank=True, null=True)
 
