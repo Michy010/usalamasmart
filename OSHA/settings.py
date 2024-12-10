@@ -47,10 +47,15 @@ MEDIA_URL ='/media/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY="django-insecure-bdt74-(ltd+#_=gt(=l&6!7une1pha4(4xh!2_0&p(35nzoceq"
 
-DEBUG = True
-ALLOWED_HOSTS = ['172.20.10.3', '127.0.0.1', 'localhost']
+SECRET_KEY = env.str(
+  "SECRET_KEY", 
+  default="django-insecure-bdt74-(ltd+#_=gt(=l&6!7une1pha4(4xh!2_0&p(35nzoceq",
+)
+
+DEBUG = env.bool("DEBUG", default=False)
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
 
 
 
@@ -63,7 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'whitenoise.runserver_nostatic',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 
     # My Apps
@@ -76,6 +81,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -108,19 +114,23 @@ WSGI_APPLICATION = 'OSHA.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+import dj_database_url
+
+# django_project/settings.py
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(env("DATABASE_URL", default="sqlite:///db.sqlite3")),
 }
 
 
-# import dj_database_url
-
-# DATABASES = {
-#     'default': dj_database_url.parse(env('DATABASE_URL'))
-# }
 
 
 # Password validation
@@ -163,17 +173,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-if not DEBUG:
+# if not DEBUG:
     # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
