@@ -11,7 +11,7 @@ environ==1.0
 gunicorn==22.0.0
 h11==0.14.0
 idna==3.10
-integration-portal @ file:///C:/Users/MSITA/downloads/portal-sdk1/portal-sdk
+# integration-portal @ file:///C:/Users/MSITA/downloads/portal-sdk1/portal-sdk
 packaging==24.0
 Pillow==10.1.0
 psycopg2==2.9.5
@@ -27,3 +27,4 @@ tzdata==2023.3
 urllib3==2.2.3
 uvicorn==0.29.0
 whitenoise==6.6.0
+cryptography==41.0.3

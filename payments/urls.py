@@ -8,6 +8,6 @@ urlpatterns = [
     path('success_url/', views.success_page, name='successful'),
     path('cancel_url/', views.cancel_page, name='canceled'),
     path('webhook/', views.webhook_endpoint, name='webhook_endpoint'),
-    path('get-session/', views.get_session_key, name='get_session'),
-    path('payment-initiation/', views.initiate_payments, name='paymentInitiation')
+    # path('get-session/', views.get_session_key, name='get_session'),
+    # path('payment-initiation/', views.initiate_payments, name='paymentInitiation')
 ]

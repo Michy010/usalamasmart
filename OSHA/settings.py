@@ -54,8 +54,8 @@ SECRET_KEY = env.str(
 )
 
 DEBUG = env.bool("DEBUG", default=False)
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ["https://*.fly.dev"]
+ALLOWED_HOSTS = ['usalamasmart.fly.dev', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["https://usalamasmart.fly.dev"]
 
 
 

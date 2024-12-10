@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from usalama_smart.models import Lawyer
-from .utils import webhook_received
+# from .utils import webhook_received
 from django.conf import settings
-from .utils import get_session_token
+# from .utils import get_session_token
 from django.views.decorators.csrf import csrf_exempt
 import json
 from Crypto.PublicKey import RSA
@@ -13,9 +13,9 @@ import stripe
 import requests
 
 # Mpesa dependencies
-from portalsdk import APIContext, APIMethodType, APIRequest
-from time import sleep
-import time
+# from portalsdk import APIContext, APIMethodType, APIRequest
+# from time import sleep
+# import time
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -34,7 +34,7 @@ def cancel_page (request):
 def create_checkout_session (request):
     if request.method == 'POST':
         try:
-            DOMAIN_NAME = 'http://localhost:8000/payments'
+            DOMAIN_NAME = 'https://usalamasmart.fly.dev/payments'
             checkout_session = stripe.checkout.Session.create(
                 line_items=[
                     {
@@ -84,98 +84,98 @@ def webhook_endpoint (request):
         #     register_lawyer.is_active = True
         #     register_lawyer.save()
 
-def encrypt_api_key(api_key, public_key):
-    """Encrypt the API key using the provided public key."""
-    # Ensure the public key is in PEM format
-    formatted_public_key = (
-        "-----BEGIN PUBLIC KEY-----\n"
-        + public_key +
-        "\n-----END PUBLIC KEY-----"
-    )
+# def encrypt_api_key(api_key, public_key):
+#     """Encrypt the API key using the provided public key."""
+#     # Ensure the public key is in PEM format
+#     formatted_public_key = (
+#         "-----BEGIN PUBLIC KEY-----\n"
+#         + public_key +
+#         "\n-----END PUBLIC KEY-----"
+#     )
     
-    rsa_key = RSA.importKey(formatted_public_key)
-    cipher = PKCS1_v1_5.new(rsa_key)
-    encrypted_key = base64.b64encode(cipher.encrypt(api_key.encode('utf-8')))
-    return encrypted_key.decode('utf-8')
+#     rsa_key = RSA.importKey(formatted_public_key)
+#     cipher = PKCS1_v1_5.new(rsa_key)
+#     encrypted_key = base64.b64encode(cipher.encrypt(api_key.encode('utf-8')))
+#     return encrypted_key.decode('utf-8')
 
-def get_session_key(request):
-    public_key = settings.PUBLIC_KEY  # Replace with the public key provided by the API documentation
-    api_key = settings.API_KEY      # Replace with your API key
+# def get_session_key(request):
+#     public_key = settings.PUBLIC_KEY  # Replace with the public key provided by the API documentation
+#     api_key = settings.API_KEY      # Replace with your API key
 
-    # Encrypt the API key using the provided public key
-    encrypted_api_key = encrypt_api_key(api_key, public_key)
+#     # Encrypt the API key using the provided public key
+#     encrypted_api_key = encrypt_api_key(api_key, public_key)
 
-    # Create API context
-    api_context = APIContext()
-    api_context.api_key = api_key
-    api_context.public_key = public_key
-    api_context.ssl = True
-    api_context.method_type = APIMethodType.GET
-    api_context.address = 'openapi.m-pesa.com'
-    api_context.port = 443
-    api_context.path = '/sandbox/ipg/v2/vodacomTZN/getSession/'  # Adjust for your market (e.g., vodacomTZN for Tanzania)
+#     # Create API context
+#     api_context = APIContext()
+#     api_context.api_key = api_key
+#     api_context.public_key = public_key
+#     api_context.ssl = True
+#     api_context.method_type = APIMethodType.GET
+#     api_context.address = 'openapi.m-pesa.com'
+#     api_context.port = 443
+#     api_context.path = '/sandbox/ipg/v2/vodacomTZN/getSession/'  # Adjust for your market (e.g., vodacomTZN for Tanzania)
 
-    # Add headers
-    api_context.add_header('Authorization', f'Bearer {encrypted_api_key}')
-    api_context.add_header('Origin', '127.0.0.1')
-    api_context.add_header('Content-Type', 'application/json')
+#     # Add headers
+#     api_context.add_header('Authorization', f'Bearer {encrypted_api_key}')
+#     api_context.add_header('Origin', '127.0.0.1')
+#     api_context.add_header('Content-Type', 'application/json')
 
-    # Create API request
-    api_request = APIRequest(api_context)
+#     # Create API request
+#     api_request = APIRequest(api_context)
 
-    try:
-        result = api_request.execute()
+#     try:
+#         result = api_request.execute()
         
-        # Log or print the headers to see if they are in the expected format
-        print("Response Headers:", result.headers)
+#         # Log or print the headers to see if they are in the expected format
+#         print("Response Headers:", result.headers)
         
-        # Make sure headers are properly serialized to JSON-compatible format
-        headers_dict = {key: value for key, value in result.headers.items()}
+#         # Make sure headers are properly serialized to JSON-compatible format
+#         headers_dict = {key: value for key, value in result.headers.items()}
 
-        return JsonResponse({
-            "status_code": result.status_code,
-            "headers": headers_dict,  # Ensure headers are serializable to JSON
-            "body": result.body,
-        })
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+#         return JsonResponse({
+#             "status_code": result.status_code,
+#             "headers": headers_dict,  # Ensure headers are serializable to JSON
+#             "body": result.body,
+#         })
+#     except Exception as e:
+#         return JsonResponse({"error": str(e)}, status=500)
 
 
-def initiate_payments(request):
-    if request.method == 'POST':
-        try:
-            # Fetch session token
-            session_token = get_session_token()
+# def initiate_payments(request):
+#     if request.method == 'POST':
+#         try:
+#             # Fetch session token
+#             session_token = get_session_token()
 
-            # API parameters
-            endpoint_url = 'https://openapi.m-pesa.com/sandbox/ipg/v2/vodacomTZN/c2bPayment/singleStage/'
-            payload = {
-                "input_Amount": "1",
-                "input_Country": "TZN",
-                "input_Currency": "TZS",
-                "input_CustomerMSISDN": "000000000001",
-                "input_ServiceProviderCode": "000000",
-                "input_ThirdPartyConversationID": "asv02e5958774f7ba228d83d0d689761",
-                "input_TransactionReference": "T1234C",
-                "input_PurchasedItemsDesc": "Lawyer Subscription"
-            }
+#             # API parameters
+#             endpoint_url = 'https://openapi.m-pesa.com/sandbox/ipg/v2/vodacomTZN/c2bPayment/singleStage/'
+#             payload = {
+#                 "input_Amount": "1",
+#                 "input_Country": "TZN",
+#                 "input_Currency": "TZS",
+#                 "input_CustomerMSISDN": "000000000001",
+#                 "input_ServiceProviderCode": "000000",
+#                 "input_ThirdPartyConversationID": "asv02e5958774f7ba228d83d0d689761",
+#                 "input_TransactionReference": "T1234C",
+#                 "input_PurchasedItemsDesc": "Lawyer Subscription"
+#             }
 
-            headers = {
-                'Authorization': f'Bearer {session_token}',
-                'Content-Type': 'application/json',
-                'Origin': '*'
-            }
+#             headers = {
+#                 'Authorization': f'Bearer {session_token}',
+#                 'Content-Type': 'application/json',
+#                 'Origin': '*'
+#             }
 
-            response = requests.post(endpoint_url, json=payload, headers=headers)
-            response.raise_for_status()  # Raise HTTP errors
+#             response = requests.post(endpoint_url, json=payload, headers=headers)
+#             response.raise_for_status()  # Raise HTTP errors
 
-            data = response.json()
-            result = data.get('output_ResponseDesc', 'Payment initiated successfully.')
+#             data = response.json()
+#             result = data.get('output_ResponseDesc', 'Payment initiated successfully.')
 
-            return JsonResponse({'status': result}, status=200)
+#             return JsonResponse({'status': result}, status=200)
 
-        except requests.RequestException as req_err:
-            return JsonResponse({'error': f"Network error: {req_err}"}, status=500)
-        except Exception as e:
-            return JsonResponse({'error': f"Unexpected error: {e}"}, status=500)
+#         except requests.RequestException as req_err:
+#             return JsonResponse({'error': f"Network error: {req_err}"}, status=500)
+#         except Exception as e:
+#             return JsonResponse({'error': f"Unexpected error: {e}"}, status=500)
 
