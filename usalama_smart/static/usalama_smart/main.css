@@ -4,10 +4,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
-  background: #2c3e50;
+  background:#2c3e50; 
   color: white;
   position: relative;
   height: 100px;
+  /* #2c3e50 */
 }
 
 .logo {
@@ -38,7 +39,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2c3e50;
+  background-color:#4CAF50;
   padding: 1em;
   position: relative;
 }
@@ -90,7 +91,7 @@
       top: 100%;
       left: 0;
       width: 100%;
-      background-color:#2c3e50;
+      background-color:#4CAF50;
       text-align: center;
       border-top: 1px solid #fff;
       z-index: 1;
@@ -151,8 +152,8 @@
     
 }
 .header-text a:hover {
-    background-color: brown;
-    border: 1px solid brown;
+    background-color: rgb(145, 145, 16);
+    border: 1px solid rgb(145, 145, 16);
     transition: 1s;
 }
 
@@ -305,7 +306,7 @@ form .btn:hover {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #3498db;
+    background-color: yellow;
   }
 
   .signin-container {
@@ -329,7 +330,7 @@ form .btn:hover {
   }
 
   .h11 {
-    color: #3498db; 
+    color: rgb(224, 224, 33); 
   }
 
   form {
@@ -358,6 +359,14 @@ form .btn:hover {
     margin-bottom: 10px;
   }
 
+  .Login-button {
+    background-color: rgb(224, 224, 33);
+  }
+  .Login-button:hover {
+    background-color: #28a745;
+  }
+  
+
   button {
     background-color: #3498db; 
     color: #fff;
@@ -378,13 +387,16 @@ form .btn:hover {
   }
 
   .signup-link a {
-    color: #3498db;
+    color: rgb(224, 224, 33);
     text-decoration: none;
     font-weight: bold;
   }
 
   .signup-link a:hover {
     text-decoration: underline;
+  }
+  .sign-up-button {
+    background-color: #218838;
   }
 
   /* Styling for sign up page */
@@ -898,7 +910,7 @@ a:hover {
 
 /* FOOTER STYLING PAGE */
 .footer-section {
-  background-color: #2c3e50; 
+  background-color: #4CAF50; 
   color: #fff;
   text-align: center;
   padding: 20px 0;
@@ -915,8 +927,9 @@ a:hover {
 }
 
 .footer-content .highlight {
-  color: #3498db; 
+  color: blue; 
   font-weight: 600;
+  /* #3498db */
 }
 
 /* CONSULTING PAGE */
@@ -1215,7 +1228,7 @@ img{
   position: absolute;
   top: 4px;
   right: 10px; 
-  background-color: #007bff;
+  background-color: #218838;
   color: white; 
   border: none;
   padding: 10px 20px;
@@ -1338,4 +1351,237 @@ img{
   object-position: top;
   border-radius: 50%;
   margin-bottom: 10px;
+}
+
+/* Lawyer Register Section */
+.lawyer_subscription_form form {
+  background: green;
+}
+.lawyer_subscription_block h4 {
+  text-align: center;
+}
+.lawyer-register-description {
+  background-color: #ddd;
+  height: 100px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.lawyer-register-description p{
+  padding-top:50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+@media screen and (max-width:768px) {
+  .lawyer-register-description p{
+    padding: 25px 10px;
+  }
+}
+
+/* LAWYER SUBSCRIPTION SECTION */
+.lawyer-subscribe-section {
+  display: flex;
+  gap: 20px;
+  padding: 20px 10px 20px 10px;
+  background-color: rgba(0, 255, 0, 0.1);
+}
+.lawyer-subscribe-section h2 {
+  display: none;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+@media screen and (max-width:768px){
+  .lawyer-subscribe-section h2 {
+    display: block;
+  }
+}
+
+@keyframes typewriter {
+  from {width: 0;}
+  to{width: 100%;}
+}
+.lawyer-registering-texts h4{
+  font: 20px monospace;
+  overflow: hidden;
+  width: 0;
+  white-space: nowrap;
+  animation: typewriter 8s steps(40, end) forwards;
+}
+.lawyer-registering-texts p {
+  font:14px monospace;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typewriter 4s steps(20, end) 8s forwards;
+}
+@keyframes visiblle {
+  from{visibility: hidden;}
+  to{visibility: visible;}
+}
+.lawyer-registering-texts button {
+  font-family: monospace;
+  visibility: hidden;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: visiblle 2s 11.5s forwards;
+}
+.lawyer-registering-texts button a {
+  color: white;
+  text-decoration: none;
+}
+.lawyer-section-img {
+  width: 400px;
+}
+
+@media screen and (max-width:768px) {
+  .lawyer-section-img {
+    display: flex;
+    width: auto;
+  }
+  .lawyer-registering-texts h4 {
+    overflow: wrap;
+  }
+  .lawyer-subscribe-section {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+/* PAYMENT APP STYLING */
+.payment-section ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 8px;
+  margin-top: 40px;
+  margin-right: 8px;
+  background-color: #fff;
+  border-bottom: 3px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+.payment-section ul li:hover {
+  cursor: pointer;
+}
+.payment-section ul li.active {
+  border-bottom: 3px solid #0056b3;
+}
+.mobile-payment-processing-div, 
+.bank-payment-processing-div {
+  display: none;
+  flex-direction: column;
+  justify-content: left;
+  padding: 8px;
+  margin-left: 40px;
+  width: 50%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.4);
+
+}
+@media screen and (max-width:768px) {
+  .mobile-payment-processing-div, .bank-payment-processing-div {
+    width: 73%;
+    margin-right: 40px;
+  }
+}
+.about-subscription-txts {
+  background-color: rgba(200, 0, 0, 0.1);
+  padding-left: 10px;
+}
+.mobile-payment-processing-div form {
+  width: 100%;
+}
+.mobile-payment-processing-div form label,
+.bank-payment-processing-div form label {
+  padding-top: 7px;
+}
+.mobile-payment-processing-div form button,
+.bank-payment-processing-div form button {
+  background-color: darkred;
+}
+
+/* Corrections */
+.payment-form-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-left: 2px;
+}
+.payment-form-item input, .payment-form-item select {
+  width:200px;
+  margin-left: 8px;
+}
+.payment-form-item label {
+  margin-left: 8px;
+}
+
+/* STRIPE PAYMENT STYLING */
+/* General Body Styling */
+.body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Card Section Styling */
+.card {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Product Image Styling */
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Product Title */
+.product-title {
+  font-size: 24px;
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+/* Product Price */
+.product-price {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #45a049;
+  transform: scale(1.02);
+}
+
+.button:active {
+  transform: scale(1);
+}
+
+/* Footer Styling */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #888;
 }

@@ -24,6 +24,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('usalama_smart.urls', namespace='usalama_smart')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('payments/', include('payments.urls', namespace='payments')),
 )
 
 # Add static and media URLs

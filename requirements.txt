@@ -1,34 +1,29 @@
-# asgiref==3.8.1
-# dj-database-url==1.0.0
-# Django==5.0.6
-# django-environ==0.9.0
-# environ==1.0
-# gunicorn==20.1.0
-# pillow==10.3.0
-# # psycopg2==2.9.5
-# psycopg2-binary==2.9.9
-# setuptools==70.1.1
-# sqlparse==0.5.0
-# typing_extensions==4.12.2
-# tzdata==2024.1
-# whitenoise==6.3.0
-
 asgiref==3.7.2
 Brotli==1.1.0
+certifi==2024.8.30
+charset-normalizer==3.4.0
 click==8.1.7
 colorama==0.4.6
 dj-database-url==2.1.0
 Django==4.2.6
 django-environ==0.11.2
+environ==1.0
 gunicorn==22.0.0
 h11==0.14.0
+idna==3.10
+integration-portal @ file:///C:/Users/MSITA/downloads/portal-sdk1/portal-sdk
 packaging==24.0
 Pillow==10.1.0
+psycopg2==2.9.5
 psycopg2-binary==2.9.9
+pycryptodome==3.21.0
 python-decouple==3.8
+requests==2.32.3
+setuptools==70.1.1
 sqlparse==0.4.4
+stripe==11.2.0
 typing_extensions==4.12.0
 tzdata==2023.3
+urllib3==2.2.3
 uvicorn==0.29.0
 whitenoise==6.6.0
-

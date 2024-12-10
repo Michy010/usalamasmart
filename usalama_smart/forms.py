@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import Content, Incident, OHSLink, Consultation, Update
+from .models import Content, Incident, OHSLink, Consultation, Update, Lawyer
 
 class ContentForm(forms.ModelForm):
     class Meta:
@@ -62,4 +62,23 @@ class UpdateForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'placeholder': _('Enter text here...'), 'rows': 4}),
             'image': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
             'video_url': forms.URLInput(attrs={'placeholder': _('Enter video URL...')}),
+        }
+
+class LawyerSubscritionForm (forms.ModelForm):
+    class Meta:
+        model = Lawyer
+        fields = ['name', 'email', 'whatsapp_account', 'mobile_phone', 'profile_picture', 'is_active']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class':'form-field',
+                'style':'width:200px;'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class':'form-field',
+                'style':'width:200px'
+            }),
+            'whatsapp_account': forms.TextInput(attrs={
+                'class':'form-field',
+                'style':'width:200px'
+            })
         }

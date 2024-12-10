@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import environ
 import dj_database_url
+import stripe
 
 import os
 
@@ -49,7 +50,7 @@ MEDIA_URL ='/media/'
 SECRET_KEY="django-insecure-bdt74-(ltd+#_=gt(=l&6!7une1pha4(4xh!2_0&p(35nzoceq"
 
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['172.20.10.3', '127.0.0.1', 'localhost']
 
 
 
@@ -64,8 +65,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     # 'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+
+    # My Apps
     'usalama_smart',
     'accounts',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -104,19 +108,19 @@ WSGI_APPLICATION = 'OSHA.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+# import dj_database_url
+
+# DATABASES = {
+#     'default': dj_database_url.parse(env('DATABASE_URL'))
+# }
 
 
 # Password validation
@@ -186,3 +190,13 @@ LOGIN_REDIRECT_URL = '/details/'
 LOGIN_URL = 'signin'
 
 LOGOUT_REDIRECT_URL = '/'
+
+# Stripe payments environment variables
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+
+
+# MPESA payments environment variables
+API_KEY = env('api_key')
+PUBLIC_KEY = env('public_key')

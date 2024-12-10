@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'usalama_smart/main.css' %}">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>{% block title %}{% trans "Document" %}{% endblock %}</title>
@@ -12,9 +14,8 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="{% url 'usalama_smart:home' %}">
-                <img src="{% static 'usalama_smart/img/logo.png' %}" alt="{% trans "Logo" %}">
-            </a>
+            <!-- <a href="{% url 'usalama_smart:home' %}"></a> -->
+                <img src="{% static 'usalama_smart/img/logo.png' %}" alt="{% trans 'Logo' %}">
         </div>
         <div class="company-name">
             <!-- <p>{% trans "USALAMA SMART" %}</p> -->
@@ -72,16 +73,16 @@
         <h2>{% trans "Our Stakeholders" %}</h2>
         <div class="stakeholder-grid">
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/osha-logo.webp' %}" alt="{% trans "Stakeholder 1" %}">
+                <img src="{% static 'usalama_smart/img/osha-logo.webp' %}" alt="{% trans 'Stakeholder 1' %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/wcf.jpg' %}" alt="{% trans "Stakeholder 2" %}">
+                <img src="{% static 'usalama_smart/img/wcf.jpg' %}" alt="{% trans 'Stakeholder 2' %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/logo-ilo.png' %}" alt="{% trans "Stakeholder 3" %}">
+                <img src="{% static 'usalama_smart/img/logo-ilo.png' %}" alt="{% trans 'Stakeholder 3' %}">
             </div>
             <div class="stakeholder-item">
-                <img src="{% static 'usalama_smart/img/MUHAS.png' %}" alt="{% trans "Stakeholder 4" %}">
+                <img src="{% static 'usalama_smart/img/MUHAS.png' %}" alt="{% trans 'Stakeholder 4' %}">
             </div>
         </div>
     </div>
@@ -119,7 +120,7 @@
     <footer class="footer-section">
         <div class="footer-content">
             <p>&copy; 2024 Usalama Smart. {% trans "All rights reserved." %}</p>
-            <p>{% trans "Produced with love by" %} <span class="highlight">Msita</span></p>
+            <p>{% trans "Developed with love by" %} <span class="highlight">Msita</span></p>
         </div>
     </footer>
 

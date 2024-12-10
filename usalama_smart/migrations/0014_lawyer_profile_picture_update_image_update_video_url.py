@@ -10,16 +10,16 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.AddField(
-        #     model_name='lawyer',
-        #     name='profile_picture',
-        #     field=models.ImageField(blank=True, null=True, upload_to='lawyer_profiles/'),
-        # ),
-        # migrations.AddField(
-        #     model_name='update',
-        #     name='image',
-        #     field=models.ImageField(blank=True, null=True, upload_to='updates/images/'),
-        # ),
+        migrations.AddField(
+            model_name='lawyer',
+            name='profile_picture',
+            field=models.ImageField(blank=True, null=True, upload_to='lawyer_profiles/'),
+        ),
+        migrations.AddField(
+            model_name='update',
+            name='image',
+            field=models.ImageField(blank=True, null=True, upload_to='updates/images/'),
+        ),
         migrations.AddField(
             model_name='update',
             name='video_url',

@@ -1,0 +1,63 @@
+{% extends 'usalama_smart/base.html' %}
+{% load static %}
+{% block title %} payment page {% endblock %}
+{% block content %}
+<div class="payment-section" tabindex="0">
+    <ul>
+        <li id="mobile-content-block" onclick="activateBorder(this)">Mobile Payments</li>
+        <li id="bank-content-block" onclick="activateBorder(this)">Bank Payments</li>
+    </ul>
+</div>
+
+<div class="mobile-payment-processing-div">
+    <div class="about-subscription-txts">
+        <p>Subscribe for 2$ per month</p>
+    </div>
+    <form action="">
+        {% csrf_token %}
+        <div class="payment-form-item">
+            <label for="">Service Provider</label>
+            <select name="" id="">
+                <option value="">Select Service Provider</option>
+                <option value="">Vodacom</option>
+                <option value="">Tigo</option>
+                <option value="">Halotel</option>
+                <option value="">Airtel</option>
+            </select>
+        </div>
+
+        <div class="payment-form-item">
+            <label for="">Pay From</label>
+            <input type="tel" placeholder="Phone number you pay from">
+        </div>
+
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
+
+<div class="bank-payment-processing-div">
+    <div class="about-subscription-txts">
+        <p>Subscribe for 2$ per month</p>
+    </div>
+   
+<div class="body">
+  <section class="card">
+    <div class="product">
+      <img class="product-image" src="https://www.apu.apus.edu/images/site/cards/business-law.jpeg" alt="The cover of Stubborn Attachments">
+      <div class="description">
+        <h3 class="product-title">Lawyer Subscription</h3>
+        <h5 class="product-price">$2.00</h5>
+      </div>
+    </div>
+    <form action="{% url 'payments:checkout_session' %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="button" id="checkout-button">Subscribe Now</button>
+    </form>
+  </section>
+</div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'usalama_smart/menu_display_js/show_block.js' %}"></script>
+<script src="{% static 'usalama_smart/menu_display_js/activateBorder.js' %}"></script>
+{% endblock %}

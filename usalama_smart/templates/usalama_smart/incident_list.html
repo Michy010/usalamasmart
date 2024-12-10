@@ -27,7 +27,7 @@
         <td>{{ incident.description }}</td>
         <td>
           {% if incident.image %}
-            <img src="{{ incident.image.url }}" alt="{% trans "Image for" %} {{ incident.title }}" width="200">
+            <img src="{{ incident.image.url }}" alt="{% trans 'Image for' %} {{ incident.title }}" width="200">
           {% else %}
             {% trans "No image" %}
           {% endif %}

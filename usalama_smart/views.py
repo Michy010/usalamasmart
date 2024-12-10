@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, redirect
-from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm, UpdateForm
+from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm, UpdateForm, LawyerSubscritionForm
 from .models import Content, Incident, OHSLink, Update, Lawyer, Expert, Consultation
 from django.utils.dateformat import DateFormat
 from django.http import JsonResponse, HttpResponseRedirect
@@ -15,7 +15,15 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request, 'usalama_smart/index.html')
+    form = LawyerSubscritionForm ()
+    if request.method == 'POST':
+        form = LawyerSubscritionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect ('usalama_smart:view_lawyers')
+        else:
+            form = LawyerSubscritionForm()
+    return render(request, 'usalama_smart/index.html', {'form':form})
 
 def about_us(request):
     return render(request, 'usalama_smart/about_us.html')

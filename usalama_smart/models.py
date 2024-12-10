@@ -74,11 +74,11 @@ class Lawyer(models.Model):
     whatsapp_account = models.CharField(max_length=20)
     mobile_phone = models.CharField(max_length=15)
     profile_picture = models.ImageField(upload_to='lawyer_profiles/', blank=True, null=True)
-
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
-
+    
 class Expert(models.Model):
     name = models.CharField(max_length=100)
     bio = models.TextField()
@@ -95,7 +95,7 @@ class Consultation(models.Model):
     user_name = models.CharField(max_length=100)
     consultation_date = models.DateTimeField()
     message = models.TextField()
-    status = models.CharField(max_length=20, default='Pending')
+    status = models.CharField(max_length=20, default='Pending')  # 'Accepted', 'Declined', 'Pending'
     meeting_link = models.URLField(blank=True, null=True)
     decline_message = models.TextField(blank=True, null=True)
 

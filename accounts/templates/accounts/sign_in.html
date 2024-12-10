@@ -14,10 +14,10 @@
       </div>
       <div class="input-group password-container">
         <label for="password">{% trans "Password:" %}</label>
-        <input type="password" id="password" name="password" placeholder="{% trans "Enter your password" %}" required>
+        <input type="password" id="password" name="password" placeholder="{% trans 'Enter your password' %}" required>
         <i class="fas fa-eye-slash toggle-password"></i>
       </div>
-      <button type="submit">{% trans "Sign In" %}</button>
+      <button type="submit" class="Login-button">{% trans "Sign In" %}</button>
     </form>
 
     {% for message in messages %}
