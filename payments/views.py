@@ -24,65 +24,74 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def payments_page(request):
     return render (request, 'payments/lawyer_subscription.html')
 
-def success_page (request):
-    return render (request, 'payments/success.html')
-
-def cancel_page (request):
-    return render (request, 'payments/cancel.html')
-
-
-def create_checkout_session (request):
-    if request.method == 'POST':
+def create_checkout_session(request):
+    if request.method == 'GET':
         try:
-            DOMAIN_NAME = 'https://usalamasmart.fly.dev/payments'
+            DOMAIN_NAME = 'https://usalamasmart.fly.dev'
             checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
                 line_items=[
                     {
-                        # Provide the exact Price ID (for example, pr_1234) of the product you want to sell
                         'price': 'price_1QMQEoBViiraK7sOcPSVsFGA',
                         'quantity': 1,
                     },
                 ],
                 mode='subscription',
-                success_url=DOMAIN_NAME + '/success_url/',
-                cancel_url=DOMAIN_NAME + '/cancel_url/',
+                success_url=f"{DOMAIN_NAME}/payments/success_url/",
+                cancel_url=f"{DOMAIN_NAME}/payments/cancel_url/",
             )
-
             return redirect(checkout_session.url, code=303)
-        
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+
     return HttpResponse("Method not allowed", status=405)
 
-def webhook_endpoint (request):
+
+def success_page(request):
+    # Retrieve lawyer data from session
+    lawyer_data = request.session.get('lawyer_data', None)
+    if lawyer_data:
+        # Save lawyer to the database
+        Lawyer.objects.create(
+            name=lawyer_data['name'],
+            email=lawyer_data['email'],
+            whatsapp_account=lawyer_data['whatsapp_account'],
+            mobile_phone=lawyer_data['mobile_phone'],
+            profile_picture=lawyer_data.get('profile_picture_path', None)
+        )
+        # Clear session data
+        del request.session['lawyer_data']
+    return render(request, 'payments/success.html')
+
+
+def cancel_page(request):
+    # Redirect to a cancel page or show a cancellation message
+    return render(request, 'payments/cancel.html')
+
+
+def webhook_endpoint(request):
     if request.method == 'POST':
         webhook_secret = settings.STRIPE_WEBHOOK_SECRET
-        request_data = json.loads(request.data)
-        if webhook_secret:
-        # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
-            signature = request.headers.get('stripe-signature')
-            try:
-                event = stripe.Webhook.construct_event(
-                    payload=request.data, sig_header=signature, secret=webhook_secret)
-                data = event['data']
-            except Exception as e:
-                return e
-            # Get the type of webhook event sent - used to check the status of PaymentIntents.
-            event_type = event['type']
-        else:
-            data = request_data['data']
-            event_type = request_data['type']
-        data_object = data['object']
+        payload = request.body
+        sig_header = request.headers.get('Stripe-Signature', None)
 
-        print('event ' + event_type)
+        try:
+            event = stripe.Webhook.construct_event(payload, sig_header, webhook_secret)
+        except ValueError as e:
+            return HttpResponse(status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return HttpResponse(status=400)
 
-    return HttpResponse('Accepted')
-    
-        # if event_type == 'checkout.session.completed':
-        #     register_lawyer, created = Lawyer.objects.get_or_create(id=lawyer_id)
-            
-        #     register_lawyer.is_active = True
-        #     register_lawyer.save()
+        # Handle the event type
+        if event['type'] == 'checkout.session.completed':
+            session = event['data']['object']
+            print(f"Payment succeeded for session: {session.id}")
+
+        return HttpResponse(status=200)
+
+    return HttpResponse("Method not allowed", status=405)
+
+
 
 # def encrypt_api_key(api_key, public_key):
 #     """Encrypt the API key using the provided public key."""

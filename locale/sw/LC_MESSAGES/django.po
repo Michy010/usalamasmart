@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 01:08+0300\n"
+"POT-Creation-Date: 2024-12-21 01:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: .\accounts\templates\accounts\sign_in.html:4
 #: .\accounts\templates\accounts\sign_in.html:20
 msgid "Sign In"
@@ -92,7 +93,7 @@ msgstr "Maandishi"
 #: .\usalama_smart\models.py:10
 #: .\usalama_smart\templates\usalama_smart\content_list.html:17
 #: .\usalama_smart\templates\usalama_smart\content_list.html:25
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:17
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:16
 msgid "Image"
 msgstr "Picha"
 
@@ -105,7 +106,7 @@ msgid "Mixed"
 msgstr "Mchanganyiko"
 
 #: .\usalama_smart\templates\usalama_smart\about_us.html:3
-#: .\usalama_smart\templates\usalama_smart\base.html:48
+#: .\usalama_smart\templates\usalama_smart\base.html:30
 msgid "About Us"
 msgstr "Kuhusu Sisi"
 
@@ -121,8 +122,8 @@ msgid ""
 "and compliance with safety regulations."
 msgstr ""
 "Usalama Smart ni programu iliyoundwa kuboresha afya na usalama mahali pa "
-"kazi. Programu inawezesha mawasiliano ya moja kwa moja kati ya wafanyakazi na "
-"meneja wa usalama, ikidhibiti majibu ya haraka kwa hatari za uwezekano na "
+"kazi. Programu inawezesha mawasiliano ya moja kwa moja kati ya wafanyakazi "
+"na meneja wa usalama, ikidhibiti majibu ya haraka kwa hatari za uwezekano na "
 "kuzingatia sheria za usalama."
 
 #: .\usalama_smart\templates\usalama_smart\about_us.html:11
@@ -134,8 +135,8 @@ msgid ""
 msgstr ""
 "Malengo yetu ni kubuni na kutekeleza suluhisho za akili ambazo zinaboresha "
 "uripoti wa majeraha mahali pa kazi, kuimarisha usahihi wa data ya afya ya "
-"mara kwa mara, na kuwezesha mamlaka na mashirika na takwimu za kuaminika "
-"ili kuboresha viwango vya usalama na sera za mahali pa kazi."
+"mara kwa mara, na kuwezesha mamlaka na mashirika na takwimu za kuaminika ili "
+"kuboresha viwango vya usalama na sera za mahali pa kazi."
 
 #: .\usalama_smart\templates\usalama_smart\add_ohs_link.html:3
 msgid "OHS Links"
@@ -170,108 +171,86 @@ msgstr "kwenye"
 msgid "No updates yet."
 msgstr "Hakuna sasisho bado."
 
-#: .\usalama_smart\templates\usalama_smart\base.html:10
+#: .\usalama_smart\templates\usalama_smart\base.html:12
 msgid "Document"
 msgstr "Hati"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:16
+#: .\usalama_smart\templates\usalama_smart\base.html:17
 msgid "Logo"
 msgstr "Logo"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:20
-#: .\usalama_smart\templates\usalama_smart\index.html:8
-msgid "USALAMA SMART"
-msgstr "Usalama Smart"
-
-#: .\usalama_smart\templates\usalama_smart\base.html:25
+#: .\usalama_smart\templates\usalama_smart\base.html:22
 #: .\usalama_smart\templates\usalama_smart\index.html:4
 msgid "Home"
 msgstr "Nyumbani"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:27
-#: .\usalama_smart\templates\usalama_smart\register_lawyer.html:4
-#: .\usalama_smart\templates\usalama_smart\register_lawyer.html:7
-#: .\usalama_smart\templates\usalama_smart\view_lawyers.html:4
-msgid "Register Lawyer"
-msgstr "Sajiri Wakili"
-
-#: .\usalama_smart\templates\usalama_smart\base.html:31
-msgid "Post Updates"
-msgstr "Chapisha Sasisho"
-
-#: .\usalama_smart\templates\usalama_smart\base.html:35
-msgid "Add OHS"
-msgstr "Ongeza OHS"
-
-#: .\usalama_smart\templates\usalama_smart\base.html:39
-msgid "Create Session"
-msgstr "Unda Kikao"
-
-#: .\usalama_smart\templates\usalama_smart\base.html:43
+#: .\usalama_smart\templates\usalama_smart\base.html:25
 msgid "User Dashboard"
 msgstr "Dashibodi ya Mtumiaji"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:46
+#: .\usalama_smart\templates\usalama_smart\base.html:28
 #: .\usalama_smart\templates\usalama_smart\details.html:26
 #: .\usalama_smart\templates\usalama_smart\details.html:29
 msgid "OHS regulations & guidelines"
 msgstr "OHS Kanuni na Miongozo"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:51
-msgid "Incidence List"
-msgstr "Orodha ya Matukio"
+#: .\usalama_smart\templates\usalama_smart\base.html:33
+msgid "CMS"
+msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\base.html:59
+#: .\usalama_smart\templates\usalama_smart\base.html:37
 msgid "Logout"
 msgstr "Toka"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:72
+#: .\usalama_smart\templates\usalama_smart\base.html:47
 msgid "Our Stakeholders"
 msgstr "Wadau"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:75
+#: .\usalama_smart\templates\usalama_smart\base.html:50
 msgid "Stakeholder 1"
 msgstr "Mdau 1"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:78
+#: .\usalama_smart\templates\usalama_smart\base.html:53
 msgid "Stakeholder 2"
 msgstr "Mdau 2"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:81
+#: .\usalama_smart\templates\usalama_smart\base.html:56
 msgid "Stakeholder 3"
 msgstr "Mdau 3"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:84
+#: .\usalama_smart\templates\usalama_smart\base.html:59
 msgid "Stakeholder 4"
 msgstr "Mdau 4"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:90
+#: .\usalama_smart\templates\usalama_smart\base.html:65
 msgid "Contact Us"
 msgstr "Wasiliana Nasi"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:95
+#: .\usalama_smart\templates\usalama_smart\base.html:70
 msgid "+255 757 280 637"
 msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\base.html:101
+#: .\usalama_smart\templates\usalama_smart\base.html:76
 #: .\usalama_smart\templates\usalama_smart\view_lawyers.html:17
 msgid "WhatsApp"
 msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\base.html:107
+#: .\usalama_smart\templates\usalama_smart\base.html:82
 msgid "Instagram"
 msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\base.html:113
+#: .\usalama_smart\templates\usalama_smart\base.html:88
 msgid "X"
 msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\base.html:121
+#: .\usalama_smart\templates\usalama_smart\base.html:96
 msgid "All rights reserved."
 msgstr "Haki zote zimehifadhiwa"
 
-#: .\usalama_smart\templates\usalama_smart\base.html:122
-msgid "Produced with love by"
+#: .\usalama_smart\templates\usalama_smart\base.html:97
+#, fuzzy
+#| msgid "Produced with love by"
+msgid "Developed with love by"
 msgstr "Imetengenezwa kwa upendo na"
 
 #: .\usalama_smart\templates\usalama_smart\change_password.html:4
@@ -292,7 +271,9 @@ msgstr "Ombi la miadi limekusanywa"
 msgid ""
 "Your consultation request has been submitted successfully. Please visit your "
 "dashboard to check if it has been accepted or is still pending."
-msgstr "Miadi yako imekusanywa kikamilifu. Tafadhari tembelea dashibodi yako kuangalia kama imekubarika au bado inasubiri"
+msgstr ""
+"Miadi yako imekusanywa kikamilifu. Tafadhari tembelea dashibodi yako "
+"kuangalia kama imekubarika au bado inasubiri"
 
 #: .\usalama_smart\templates\usalama_smart\consultation_success.html:11
 msgid "Go to My Dashboard"
@@ -368,7 +349,7 @@ msgid "Upcoming Consultations"
 msgstr "Miadi ijayo"
 
 #: .\usalama_smart\templates\usalama_smart\expert_dashboard.html:15
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:15
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:14
 #: .\usalama_smart\templates\usalama_smart\user_dashboard.html:21
 msgid "Date"
 msgstr "Tarehe"
@@ -422,78 +403,103 @@ msgstr "Dashibodi ya Mtaalamu"
 msgid "Rating"
 msgstr "Kiwango"
 
-#: .\usalama_smart\templates\usalama_smart\incidence_success.html:6
+#: .\usalama_smart\templates\usalama_smart\incidence_success.html:7
 msgid "Incident Submitted"
 msgstr "Tukio limekusanywa"
 
-#: .\usalama_smart\templates\usalama_smart\incidence_success.html:8
+#: .\usalama_smart\templates\usalama_smart\incidence_success.html:9
 msgid ""
 "Your incident report has been submitted successfully. You can now return to "
 "the home page."
-msgstr "Tukio limekusanywa kikamilifu. Unaweza kurudi kwenye ukurasa wa nyumbani"
+msgstr ""
+"Tukio limekusanywa kikamilifu. Unaweza kurudi kwenye ukurasa wa nyumbani"
 
-#: .\usalama_smart\templates\usalama_smart\incidence_success.html:10
+#: .\usalama_smart\templates\usalama_smart\incidence_success.html:11
 msgid "Go to Home Page"
 msgstr "Nenda ukurasa wa nyumbani"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:6
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:9
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:5
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:8
 msgid "Incident List"
 msgstr "Listi ya Matukio"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:13
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:12
 #: .\usalama_smart\templates\usalama_smart\post_update.html:13
 #: .\usalama_smart\templates\usalama_smart\post_update.html:14
 #: .\usalama_smart\templates\usalama_smart\report_incident.html:14
 msgid "Title"
 msgstr "Kichwa"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:14
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:13
 #: .\usalama_smart\templates\usalama_smart\report_incident.html:24
 msgid "Severity"
 msgstr "Ukali"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:16
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:15
 #: .\usalama_smart\templates\usalama_smart\report_incident.html:19
 msgid "Description"
 msgstr "Maelezo"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:18
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:17
 #: .\usalama_smart\templates\usalama_smart\report_incident.html:34
 msgid "Reporter"
 msgstr "Ripota"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:19
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:18
 msgid "Location"
 msgstr "Eneo"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:31
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:30
 msgid "Image for"
 msgstr "Picha ya"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:33
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:32
 msgid "No image"
 msgstr "Hakuna Picha"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:40
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:39
 msgid "Anonymous"
 msgstr "Pasipo kujurikana"
 
-#: .\usalama_smart\templates\usalama_smart\incident_list.html:47
+#: .\usalama_smart\templates\usalama_smart\incident_list.html:46
 msgid "No location"
 msgstr "Hakuna Eneo"
 
-#: .\usalama_smart\templates\usalama_smart\index.html:9
-msgid "GET STARTED"
-msgstr "Anza"
+#: .\usalama_smart\templates\usalama_smart\index.html:13
+msgid "En"
+msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\index.html:14
-msgid "English"
-msgstr "English"
+#: .\usalama_smart\templates\usalama_smart\index.html:18
+msgid "Sw"
+msgstr ""
 
-#: .\usalama_smart\templates\usalama_smart\index.html:21
-msgid "Swahili"
-msgstr "Swahili"
+#: .\usalama_smart\templates\usalama_smart\index.html:23
+msgid "Welcome to Usalama Smart"
+msgstr "Karibu Usalama Smart"
+
+#: .\usalama_smart\templates\usalama_smart\index.html:24
+msgid ""
+"Your go-to platform for workplace safety, expert advice, and legal "
+"consultations."
+msgstr "Jukwaa lako bora la usalama kazini, ushauri wa kitaalamu, na mashauriano ya kisheria."
+
+#: .\usalama_smart\templates\usalama_smart\index.html:25
+msgid "Get Started"
+msgstr "Anza Sasa"
+
+#: .\usalama_smart\templates\usalama_smart\index.html:30
+msgid "Lawyer Subscription"
+msgstr "Usajili wa Wakili"
+
+#: .\usalama_smart\templates\usalama_smart\index.html:31
+msgid ""
+"Are you a lawyer? Join our platform to offer your expertise to workplaces in "
+"need of legal advice."
+msgstr "Je, wewe ni wakili? Jiunge na jukwaa letu ili kutoa utaalamu wako kwa sehemu za kazi zinazohitaji ushauri wa kisheria."
+
+#: .\usalama_smart\templates\usalama_smart\index.html:32
+msgid "Register Now"
+msgstr "Jisajiri"
 
 #: .\usalama_smart\templates\usalama_smart\ohs_link_list.html:4
 #: .\usalama_smart\templates\usalama_smart\ohs_link_list.html:6
@@ -539,11 +545,19 @@ msgstr "Maudhui"
 msgid "Upload Image"
 msgstr "Weka Picha"
 
-#: .\usalama_smart\templates\usalama_smart\post_update.html:26
 #: .\usalama_smart\templates\usalama_smart\post_update.html:25
 msgid "Enter Video URL"
 msgstr "Weka kiungo cha video"
 
+#: .\usalama_smart\templates\usalama_smart\post_update.html:26
+msgid "Enter video URL"
+msgstr "Weka kiungo cha video"
+
+#: .\usalama_smart\templates\usalama_smart\register_lawyer.html:4
+#: .\usalama_smart\templates\usalama_smart\register_lawyer.html:7
+#: .\usalama_smart\templates\usalama_smart\view_lawyers.html:4
+msgid "Register Lawyer"
+msgstr "Sajiri Wakili"
 
 #: .\usalama_smart\templates\usalama_smart\register_lawyer.html:11
 #: .\usalama_smart\templates\usalama_smart\register_lawyer.html:12
@@ -635,34 +649,59 @@ msgstr "Simu"
 msgid "No lawyers found."
 msgstr "Hakuna Wakili"
 
-#: .\usalama_smart\views.py:36
+#: .\usalama_smart\views.py:47
 msgid ""
 "For 'Mixed' content type, provide text and either an image or video URL."
 msgstr "Kwa 'Mchanganyiko' weka maudhui na vidio au Picha"
 
-#: .\usalama_smart\views.py:196
+#: .\usalama_smart\views.py:228
 #, python-brace-format
 msgid ""
 "Your consultation with {expert_name} has been accepted. Please copy the link "
 "below and keep it safe"
-msgstr "Miadi yako na {expert_name} imekubaliwa. Tafadhari nakili kiungo hapo chini na utunze "
+msgstr ""
+"Miadi yako na {expert_name} imekubaliwa. Tafadhari nakili kiungo hapo chini "
+"na utunze "
 
-#: .\usalama_smart\views.py:202
+#: .\usalama_smart\views.py:240
 #, python-brace-format
 msgid "Your consultation with {expert_name} has been declined."
 msgstr "Miadi yako na  {expert_name} imekataliwa"
 
-#: .\usalama_smart\views.py:226
-#, python-brace-format
+#: .\usalama_smart\views.py:268
 msgid ""
-"Your consultation with {expert_name} has been accepted."
-"Here is your Google Meet link:"
-msgstr "Miadi yako na {expert_name} imekubaliwa hii ni kiungo chako cha Google"
+"Your consultation with {expert_name} has been accepted.\n"
+"Here is your Google Meet link: {meet_link}\n"
+msgstr "Miadi yako na {expert_name} imekubaliwa.\n"
+"hii ni kiungo chako cha Google.\n"
 
-#: .\usalama_smart\views.py:229
-#, python-brace-format
+#: .\usalama_smart\views.py:271
 msgid ""
-"Your consultation with {expert_name} has been declined."
-"Reason: {decline_message}"
-msgstr "Miadi yako na {expert_name} imekataliwa."
-"Sababu: {decline_message}"
+"Your consultation with {expert_name} has been declined.\n"
+"Reason: {decline_message}\n"
+msgstr "Miadi yako na {expert_name} imekataliwa.\n"
+"Sababu: {decline_message}\n"
+
+#~ msgid "USALAMA SMART"
+#~ msgstr "Usalama Smart"
+
+#~ msgid "Post Updates"
+#~ msgstr "Chapisha Sasisho"
+
+#~ msgid "Add OHS"
+#~ msgstr "Ongeza OHS"
+
+#~ msgid "Create Session"
+#~ msgstr "Unda Kikao"
+
+#~ msgid "Incidence List"
+#~ msgstr "Orodha ya Matukio"
+
+#~ msgid "GET STARTED"
+#~ msgstr "Anza"
+
+#~ msgid "English"
+#~ msgstr "English"
+
+#~ msgid "Swahili"
+#~ msgstr "Swahili"

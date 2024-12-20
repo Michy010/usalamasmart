@@ -14,53 +14,27 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <!-- <a href="{% url 'usalama_smart:home' %}"></a> -->
-                <img src="{% static 'usalama_smart/img/logo.png' %}" alt="{% trans 'Logo' %}">
-        </div>
-        <div class="company-name">
-            <!-- <p>{% trans "USALAMA SMART" %}</p> -->
+            <img src="{% static 'usalama_smart/img/logo.png' %}" alt="{% trans 'Logo' %}">
         </div>
         <div class="nav-menu">
             <i id="menu-icon" class="fas fa-bars hamburger-icon"></i>
             <ul>
                 <li><a href="{% url 'usalama_smart:home' %}">{% trans "Home" %}</a></li>
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:register_lawyer' %}">{% trans "Register Lawyer" %}</a></li>
-                {% endif %}
-
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:post_update' %}">{% trans "Post Updates" %}</a></li>
-                {% endif %}
-
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:add_ohs_link' %}">{% trans "Add OHS" %}</a></li>
-                {% endif %}
-
-                {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:content_create' %}">{% trans "Create Session" %}</a></li>
-                {% endif %}
-
+    
                 {% if request.user.is_authenticated %}
                 <li><a href="{% url 'usalama_smart:user_dashboard' %}">{% trans "User Dashboard" %}</a></li>
                 {% endif %}
-
+    
                 <li><a href="{% url 'usalama_smart:ohs_link_list' %}">{% trans "OHS regulations & guidelines" %}</a></li>
-
+    
                 <li><a href="{% url 'usalama_smart:about_us' %}">{% trans "About Us" %}</a></li>
-
+    
                 {% if request.user.is_superuser %}
-                <li><a href="{% url 'usalama_smart:incidence_list' %}">{% trans "Incidence List" %}</a></li>
+                <li><a href="{% url 'usalama_smart:content_management_system' %}">{% trans "CMS" %}</a></li>
                 {% endif %}
-
+    
                 {% if request.user.is_authenticated %}
-                <li>
-                    <form method="post" action="{% url 'usalama_smart:logout' %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
-                            {% trans "Logout" %}
-                        </button>
-                    </form>
-                </li>
+                <li><a href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -132,6 +106,5 @@
             });
         });
     </script>
-
 </body>
 </html>

@@ -3,36 +3,32 @@
 {% load i18n %}
 {% block title %}{% trans "Home" %}{% endblock %}
 {% block content %}
-<section class="home-page">
-    <div class="header-text">
-        <h3>{% trans "USALAMA SMART" %}</h3><br>
-        <a href="{% url 'accounts:signin' %}">{% trans "GET STARTED" %}</a><br>
+  <section class="home-page">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="company-name">
         <ol>
-          <li class="">
-            <a class="nav-link nav-user mr-0 waves-eff" href="/en{{ request.get_full_path|slice:'3:' }}" role="button">
-              <span class="pro-user-name ml-1">
-                {% trans "English" %}
-              </span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link nav-user mr-0 waves-eff" href="/sw{{ request.get_full_path|slice:'3:' }}" role="button">
-              <span class="pro-user-name ml-1">
-                {% trans "Swahili" %}
-              </span>
-            </a>
-           </li>
+            <li>
+                <a class="nav-link nav-user mr-0 waves-eff" href="/en{{ request.get_full_path|slice:'3:' }}" role="button">
+                    <span class="pro-user-name ml-1">{% trans "En" %}</span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link nav-user mr-0 waves-eff" href="/sw{{ request.get_full_path|slice:'3:' }}" role="button">
+                    <span class="pro-user-name ml-1">{% trans "Sw" %}</span>
+                </a>
+            </li>
         </ol>
+      </div>
+        <h2>{% trans 'Welcome to Usalama Smart' %}</h2>
+        <p>{% trans 'Your go-to platform for workplace safety, expert advice, and legal consultations.' %}</p>
+        <button class="cta-btn"><a href="{% url 'accounts:signin' %}">{% trans 'Get Started' %}</a></button>
     </div>
-</section>
+  </section>
 
-<section class="lawyer-subscribe-section">
-  <h2>Lawyer Subscription</h2>
-  <div class="lawyer-section-img"><img src="{% static 'usalama_smart/img/Lawyer subscribe.jpg' %}" alt="lawyer"></div>
-  <div class="lawyer-registering-texts">
-    <h4>Are you a lawyer? register now</h4>
-    <p>It is easier just by single click</p>
-    <button><a href="{% url 'usalama_smart:register_lawyer' %}">Register Now</a></button>
-  </div>
-</section>
+  <section class="subscription" id="lawyer-subscription">
+    <h3>{% trans 'Lawyer Subscription' %}</h3>
+    <p>{% trans 'Are you a lawyer? Join our platform to offer your expertise to workplaces in need of legal advice.' %}</p>
+    <button class="subscribe-btn"><a style="color: #fff; text-decoration: none;" href="{% url 'usalama_smart:register_lawyer' %}">{% trans 'Register Now' %}</a></button>
+  </section>
 {% endblock %}

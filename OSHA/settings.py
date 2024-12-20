@@ -54,7 +54,7 @@ SECRET_KEY = env.str(
 )
 
 DEBUG = env.bool("DEBUG", default=False)
-ALLOWED_HOSTS = ['usalamasmart.fly.dev', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['usalamasmart.fly.dev','localhost','127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ["https://usalamasmart.fly.dev"]
 
 
@@ -129,9 +129,6 @@ import dj_database_url
 DATABASES = {
     "default": dj_database_url.parse(env("DATABASE_URL", default="sqlite:///db.sqlite3")),
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -209,3 +206,11 @@ STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 # MPESA payments environment variables
 API_KEY = env('api_key')
 PUBLIC_KEY = env('public_key')
+
+# EMAIL SETUPS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'michaelmsita17@gmail.com'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
