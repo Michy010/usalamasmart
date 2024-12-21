@@ -192,12 +192,6 @@ def expert_list(request):
 
 def expert_detail(request, pk):
     expert = get_object_or_404(Expert, pk=pk)
-    if request.user.is_authenticated and request.user.is_staff:
-        pass
-    elif request.user.is_authenticated:
-        if expert.user != request.user:
-            raise Http404("You do not have permission to access this expert.")
-    
     client_name = request.user.username
     expert_name = expert.name
     expert_email = expert.email
