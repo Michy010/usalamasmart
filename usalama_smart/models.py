@@ -74,7 +74,6 @@ class Lawyer(models.Model):
     whatsapp_account = models.CharField(max_length=20)
     mobile_phone = models.CharField(max_length=15)
     profile_picture = models.ImageField(upload_to='lawyer_profiles/', blank=True, null=True)
-    is_active = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return self.name

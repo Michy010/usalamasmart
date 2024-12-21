@@ -67,7 +67,7 @@ class UpdateForm(forms.ModelForm):
 class LawyerSubscritionForm (forms.ModelForm):
     class Meta:
         model = Lawyer
-        fields = ['name', 'email', 'whatsapp_account', 'mobile_phone', 'profile_picture', 'is_active']
+        fields = ['name', 'email', 'whatsapp_account', 'mobile_phone', 'profile_picture']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class':'form-field',
