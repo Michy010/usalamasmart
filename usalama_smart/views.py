@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, redirect
-from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm, UpdateForm, LawyerSubscritionForm
+from .forms import ContentForm, IncidentForm, OHSLinkForm, ConsultationForm, ExpertResponseForm, UpdateForm, LawyerSubscritionForm, ExpertForm
 from .models import Content, Incident, OHSLink, Update, Lawyer, Expert, Consultation
 from django.utils.dateformat import DateFormat
-from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.urls import reverse
@@ -167,6 +167,24 @@ def incident_chart(request):
     }
     return render(request, 'usalama_smart/incident_chart.html', context)
 
+from django.shortcuts import render, redirect
+from .forms import ExpertForm
+
+def create_expert(request):
+    if request.method == 'POST':
+        form = ExpertForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save the expert but do not commit to the database yet
+            expert = form.save(commit=False)
+            expert.user = request.user  # Associate the expert with the current logged-in user
+            expert.save()  # Save the expert instance to the database
+            return redirect('usalama_smart:expert_list')  # Redirect after successfully saving
+    else:
+        form = ExpertForm()  # Create an empty form instance for GET request
+
+    return render(request, 'usalama_smart/content_management_system.html', {'form': form})
+
+
 
 def expert_list(request):
     experts = Expert.objects.all()
@@ -174,6 +192,11 @@ def expert_list(request):
 
 def expert_detail(request, pk):
     expert = get_object_or_404(Expert, pk=pk)
+    if request.user.is_authenticated and request.user.is_staff:
+        pass
+    elif request.user.is_authenticated:
+        if expert.user != request.user:
+            raise Http404("You do not have permission to access this expert.")
     
     client_name = request.user.username
     expert_name = expert.name
@@ -210,6 +233,10 @@ def expert_detail(request, pk):
 
 def expert_dashboard(request, expert_id):
     expert = get_object_or_404(Expert, pk=expert_id)
+    if request.user != expert.user:  # If the logged-in user is not the associated expert
+        if not request.user.is_staff:  # Only allow staff to access others' dashboards, not regular users
+            return HttpResponseForbidden("You are not authorized to access this dashboard.")
+            
     consultations = Consultation.objects.filter(expert=expert).order_by('consultation_date')
     
     if request.method == 'POST':

@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import Content, Incident, OHSLink, Consultation, Update, Lawyer
+from .models import Content, Incident, OHSLink, Consultation, Update, Lawyer, Expert
 
 class ContentForm(forms.ModelForm):
     class Meta:
@@ -43,6 +43,18 @@ class ConsultationForm(forms.ModelForm):
         widgets = {
             'consultation_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
+
+class ExpertForm(forms.ModelForm):
+    class Meta:
+        model = Expert
+        fields = ['user', 'name', 'email', 'bio', 'specialization', 'profile_picture']  # Only include the fields you want
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Optionally make fields read-only or auto-populate fields
+        self.fields['user'].widget.attrs['readonly'] = True  # Make 'user' field readonly if not excluded
+        self.fields['profile_picture'].required = False  # Optionally make the profile picture field optional
 
 class ExpertResponseForm(forms.ModelForm):
     class Meta:

@@ -6,7 +6,11 @@
         <div class="expert-detail-container">
             <h1 class="expert-name">{{ expert.name }}</h1>
             <div class="expert-profile">
+                {% if expert.profile_picture %}
                 <img src="{{ expert.profile_picture.url }}" alt="{{ expert.name }}" class="expert-picture">
+                {% else %}
+                <img src="{% static 'usalama_smart/img/default_profile_picture.png' %}" alt="Default profile picture" class="expert-picture">
+                {% endif %}
                 <p class="expert-bio">{{ expert.bio }}</p>
             </div>
             <div class="consultation-form-container">

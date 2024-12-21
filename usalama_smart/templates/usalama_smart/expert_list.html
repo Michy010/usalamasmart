@@ -6,8 +6,13 @@
     <div class="expert-list">
         {% for expert in experts %}
             <div class="expert-card">
+                {% if expert.profile_picture %}
                 <img src="{{ expert.profile_picture.url }}" alt="{{ expert.name }}">
-                {% if request.user.is_staff %}
+                {% else %}
+                <img src="{% static 'usalama_smart/img/default_profile_picture.png' %}" alt="Default profile picture" class="expert-picture">
+                {% endif %}
+
+                {% if request.user == expert.user %}
                 <p><a href="{% url 'usalama_smart:expert_dashboard' expert.pk %}">{% trans "Expert's Dashboard" %}</a></p>
                 {% endif %}
                 <h2><a href="{% url 'usalama_smart:expert_detail' expert.pk %}">{{ expert.name }}</a></h2>

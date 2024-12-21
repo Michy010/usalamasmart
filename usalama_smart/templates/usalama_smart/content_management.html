@@ -344,7 +344,7 @@
             <!-- Manage Experts Section -->
             <section id="experts" class="management-section">
                 <h2>Manage Experts</h2>
-                <form action="{% url 'usalama_smart:expert_list' %}" method="POST" enctype="multipart/form-data" class="content-form">
+                <form action="{% url 'usalama_smart:expert_creation' %}" method="POST" enctype="multipart/form-data" class="content-form">
                     {% csrf_token %}
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required><br>

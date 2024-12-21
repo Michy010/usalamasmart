@@ -79,6 +79,7 @@ class Lawyer(models.Model):
         return self.name
     
 class Expert(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
     bio = models.TextField()
