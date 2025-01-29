@@ -38,7 +38,7 @@ LANGUAGE_SESSION_KEY = 'django_language'
 environ.Env.read_env(BASE_DIR / '.env')  # <-- Updated!
 
 
-MEDIA_ROOT = os.path.join (BASE_DIR, 'media')
+MEDIA_ROOT = '/app/uploads'
 MEDIA_URL ='/media/'
 
 
