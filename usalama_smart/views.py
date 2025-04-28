@@ -176,11 +176,11 @@ def create_expert(request):
         if form.is_valid():
             # Save the expert but do not commit to the database yet
             expert = form.save(commit=False)
-            expert.user = request.user  # Associate the expert with the current logged-in user
-            expert.save()  # Save the expert instance to the database
-            return redirect('usalama_smart:expert_list')  # Redirect after successfully saving
+            expert.user = request.user  
+            expert.save()  
+            return redirect('usalama_smart:expert_list')  
     else:
-        form = ExpertForm()  # Create an empty form instance for GET request
+        form = ExpertForm()  
 
     return render(request, 'usalama_smart/content_management_system.html', {'form': form})
 
@@ -205,11 +205,19 @@ def expert_detail(request, pk):
 
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
+        current_user = request.user.username
         if form.is_valid():
             consultation = form.save(commit=False)
             consultation.expert = expert
             consultation.user = request.user
-            consultation.save()
+            username_cookie = request.COOKIES.get('username', 'Guest')
+            if username_cookie != current_user:
+                response = redirect('payments:checkout_session')
+                response.set_cookie('username', current_user, max_age=7*24*60*60)
+                return response
+            else:
+                consultation.save()
+
 
             email = EmailMessage(
                 subject=subject,
@@ -227,12 +235,11 @@ def expert_detail(request, pk):
 
 def expert_dashboard(request, expert_id):
     expert = get_object_or_404(Expert, pk=expert_id)
-    if request.user != expert.user:  # If the logged-in user is not the associated expert
-        if not request.user.is_staff:  # Only allow staff to access others' dashboards, not regular users
+    if request.user != expert.user:  
+        if not request.user.is_staff:  
             return HttpResponseForbidden("You are not authorized to access this dashboard.")
             
     consultations = Consultation.objects.filter(expert=expert).order_by('consultation_date')
-    
     if request.method == 'POST':
         consultation_id = request.POST.get('consultation_id')
         consultation = get_object_or_404(Consultation, id=consultation_id, expert=expert)

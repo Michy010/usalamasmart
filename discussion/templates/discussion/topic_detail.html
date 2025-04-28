@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ topic.title }}</title>
+    <style>
+        /* Reset and body */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Topic display */
+        .topic-card {
+            background-color: #eaf3ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #218838;
+        }
+
+        .topic-card h2 {
+            margin-top: 0;
+            font-size: 26px;
+            color: #333;
+        }
+
+        .topic-content {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #777;
+        }
+
+        /* Reply form */
+        .reply-form, .reply-form-inline {
+            margin-top: 20px;
+        }
+
+        .reply-form textarea,
+        .reply-form-inline textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            font-size: 14px;
+        }
+
+        .reply-form button,
+        .reply-form-inline button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #218838;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-form button:hover,
+        .reply-form-inline button:hover {
+            background-color: #218838;
+        }
+
+        /* Replies section */
+        .replies h3 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            color: #333;
+        }
+
+        /* Reply card */
+        .reply-card {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+            border-left: 4px solid #218838;
+        }
+
+        .reply-card:hover {
+            background-color: #f1f5fb;
+        }
+
+        .reply-card .meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Nested replies */
+        .nested-reply {
+            margin-left: 40px;
+            border-left: 2px solid #d0d7de;
+            padding-left: 15px;
+            margin-top: 10px;
+        }
+
+        /* Reply button inside card */
+        .reply-card > button {
+            margin-top: 10px;
+            background-color: transparent;
+            border: none;
+            color: #218838;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .reply-card > button:hover {
+            color: #218838;
+            text-decoration: underline;
+        }
+
+        /* Replying to username block */
+        .reply-to {
+            font-size: 13px;
+            color: #555;
+            background-color: #eef2fa;
+            padding: 6px 10px;
+            margin-bottom: 8px;
+            border-left: 4px solid #218838;
+            border-radius: 4px;
+        }
+
+        /* Buttons general */
+        button {
+            outline: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .topic-card, .reply-card {
+                padding: 15px;
+            }
+
+            .reply-form textarea,
+            .reply-form-inline textarea {
+                font-size: 15px;
+            }
+        }
+        .back-btn {
+            display:inline-block;
+            margin-bottom: 20px;
+            background-color: #218838;
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #218838;
+        }
+        .back-btn i {
+            margin-right: 6px;
+        }
+
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <a href="{% url 'discussion:discussion-page' %}">
+            <i class="fas fa-arrow-left"></i> Back
+        </a><br>
+        <!-- Topic Display -->
+        <div class="topic-card">
+            <h2>{{ topic.title }}</h2>
+            <p class="topic-content">{{ topic.content }}</p>
+            <p class="meta">Posted by <strong>{{ topic.user.username }}</strong> on {{ topic.created_at }}</p>
+        </div>
+
+        <!-- Top-Level Reply Form -->
+        <div class="reply-form">
+            <h3>Post a Reply</h3>
+            {% csrf_token %}
+            <textarea id="main-reply-text" rows="4" placeholder="Type your reply..."></textarea>
+            <button class="reply-btn" data-topic="{{ topic.pk }}" onclick="postReply(this)">Reply</button>
+        </div>
+
+        <!-- Replies Section -->
+        <div class="replies" id="reply-list">
+            <h3>Discussion</h3>
+            {% for reply in replies %}
+                {% include "discussion/reply.html" with reply=reply %}
+            {% empty %}
+                <p>No replies yet. Be the first to reply!</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+<script>
+    function toggleReplyForm(replyId) {
+        const form = document.getElementById('reply-form-' + replyId);
+        form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    // Set by Django template
+    const baseReplyUrl = "{% url 'discussion:ajax_add_reply' topic.pk %}";
+    const nestedReplyUrlTemplate = "{% url 'discussion:ajax_add_nested_reply' topic.pk 0 %}".replace(/0\/$/, '');
+
+    function postReply(button) {
+        const topicId = button.dataset.topic;
+        const parentId = button.dataset.parent;
+        const textareaId = parentId ? `reply-text-${parentId}` : 'main-reply-text';
+        const containerId = parentId ? `reply-container-${parentId}` : 'reply-list';
+
+        const content = document.getElementById(textareaId).value;
+
+        const url = parentId
+            ? nestedReplyUrlTemplate.replace(/\/0$/, `/${parentId}`)
+            : baseReplyUrl;
+
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCSRFToken(),
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `content=${encodeURIComponent(content)}`
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                const reply = data.reply;
+                const html = `
+                    <div class="reply-card" style="margin-left: ${reply.parent_id ? '40px' : '0'}">
+                        <p><strong>${reply.user}</strong> 
+                        <span class="meta">on ${reply.created_at}</span></p>
+                        <p>${reply.content}</p>
+                    </div>
+                `;
+                document.getElementById(containerId).innerHTML += html;
+                document.getElementById(textareaId).value = '';
+            } else {
+                alert(data.message || 'Failed to post reply');
+            }
+        })
+        .catch(error => {
+            console.error('Error posting reply:', error);
+            alert('Something went wrong while posting your reply.');
+        });
+    }
+</script>
+
+</body>
+</html>

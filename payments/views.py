@@ -25,6 +25,7 @@ def payments_page(request):
     return render (request, 'payments/lawyer_subscription.html')
 
 def create_checkout_session(request):
+    user = request.user
     if request.method == 'GET':
         try:
             DOMAIN_NAME = 'https://usalamasmart.fly.dev'
@@ -40,6 +41,7 @@ def create_checkout_session(request):
                 success_url=f"{DOMAIN_NAME}/payments/success_url/",
                 cancel_url=f"{DOMAIN_NAME}/payments/cancel_url/",
             )
+            
             return redirect(checkout_session.url, code=303)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)

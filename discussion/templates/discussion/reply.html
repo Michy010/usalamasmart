@@ -1,0 +1,32 @@
+<div class="reply-card {% if reply.parent %}nested-reply{% endif %}">
+    {% if reply.parent %}
+    <div class="reply-to">
+        Replying to <strong>{{ reply.parent.user.username }}</strong>:
+    </div>
+    {% endif %}
+
+    <p><strong>{{ reply.user.username }}</strong>
+    <span class="meta">on {{ reply.created_at }}</span></p>
+    
+    <p>{{ reply.content }}</p>
+
+    <button onclick="toggleReplyForm('{{ reply.id }}')">Reply</button>
+
+    <!-- Inline reply form -->
+    <div class="reply-form-inline" id="reply-form-{{ reply.id }}" style="display: none;">
+        {% csrf_token %}
+        <textarea id="reply-text-{{ reply.id }}" rows="2" placeholder="Reply to this..."></textarea>
+        <button class="submit-reply-btn"
+                data-topic="{{ topic.pk }}"
+                data-parent="{{ reply.id }}"
+                onclick="postReply(this)">Submit Reply</button>
+    </div>
+
+    <!-- Container for new nested replies -->
+    <div id="reply-container-{{ reply.id }}"></div>
+
+    <!-- Render children replies recursively -->
+    {% for child in reply.reply_set.all %}
+        {% include "discussion/reply.html" with reply=child %}
+    {% endfor %}
+</div>

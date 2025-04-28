@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'usalama_smart',
     'accounts',
     'payments',
+    'discussion',
 ]
 
 MIDDLEWARE = [
@@ -193,7 +194,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/details/'
-LOGIN_URL = 'signin'
+LOGIN_URL = '/accounts/signin/'
 
 LOGOUT_REDIRECT_URL = '/'
 

@@ -28,6 +28,8 @@
                 <li><a href="{% url 'usalama_smart:ohs_link_list' %}">{% trans "OHS regulations & guidelines" %}</a></li>
     
                 <li><a href="{% url 'usalama_smart:about_us' %}">{% trans "About Us" %}</a></li>
+
+                <li><a href="{% url 'discussion:discussion-page' %}">{% trans "Discussion Forum" %}</a></li>
     
                 {% if request.user.is_superuser %}
                 <li><a href="{% url 'usalama_smart:content_management_system' %}">{% trans "CMS" %}</a></li>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Start Discussion</title>
+    <style>
+        .create-topic-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            background-size: 120px;
+        }
+
+        .create-topic-container h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .topic-form label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .topic-form input[type="text"],
+        .topic-form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        .topic-form input:focus,
+        .topic-form textarea:focus {
+            border-color: #218838;
+            outline: none;
+        }
+
+        .submit-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #218838;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .submit-btn i {
+            margin-right: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .create-topic-container {
+                padding: 20px;
+            }
+
+            .create-topic-container h2 {
+                font-size: 22px;
+            }
+        }
+
+        .back-btn {
+            display:inline-block;
+            margin-bottom: 20px;
+            background-color: #218838;
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #218838;
+        }
+        .back-btn i {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="create-topic-container">
+    <a href="{% url 'discussion:discussion-page' %}">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+    <h2><i class="fas fa-comments"></i> Start a New Discussion</h2>
+    <p class="subtitle">Ask a question, share a challenge, or raise a legal or workplace issue.</p>
+
+    <form method="POST" class="topic-form">
+        {% csrf_token %}
+        
+        <label for="title"><i class="fas fa-heading"></i> Title</label>
+        <input type="text" id="title" name="title" placeholder="e.g. What are my rights if I'm injured at work?" required>
+
+        <label for="content"><i class="fas fa-align-left"></i> Description</label>
+        <textarea id="content" name="content" rows="6" placeholder="Provide detailed explanation or background..." required></textarea>
+
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Post Topic
+        </button>
+    </form>
+</div>
+</body>
+</html>
