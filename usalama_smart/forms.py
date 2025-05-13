@@ -15,7 +15,7 @@ class ContentForm(forms.ModelForm):
 class IncidentForm(forms.ModelForm):
     class Meta:
         model = Incident
-        fields = ['title', 'description', 'severity', 'reporter', 'image', 'is_anonymous']
+        fields = ['company', 'located', 'title', 'description', 'severity', 'reporter', 'image', 'is_anonymous']
         widgets = {
             'description': forms.Textarea(attrs={'rows': 4}),
         }
@@ -47,14 +47,13 @@ class ConsultationForm(forms.ModelForm):
 class ExpertForm(forms.ModelForm):
     class Meta:
         model = Expert
-        fields = ['user', 'name', 'email', 'bio', 'specialization', 'profile_picture']  # Only include the fields you want
+        fields = ['user', 'name', 'email', 'bio', 'specialization', 'profile_picture']  
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        # Optionally make fields read-only or auto-populate fields
-        self.fields['user'].widget.attrs['readonly'] = True  # Make 'user' field readonly if not excluded
-        self.fields['profile_picture'].required = False  # Optionally make the profile picture field optional
+        self.fields['user'].widget.attrs['readonly'] = True  
+        self.fields['profile_picture'].required = False  
 
 class ExpertResponseForm(forms.ModelForm):
     class Meta:

@@ -167,8 +167,6 @@ def incident_chart(request):
     }
     return render(request, 'usalama_smart/incident_chart.html', context)
 
-from django.shortcuts import render, redirect
-from .forms import ExpertForm
 
 def create_expert(request):
     if request.method == 'POST':
@@ -195,7 +193,7 @@ def expert_detail(request, pk):
     client_name = request.user.username
     expert_name = expert.name
     expert_email = expert.email
-    platform_link = f'https://usalamasmart.fly.dev/expert/'
+    platform_link = f'https://usalamasmart.fly.dev/'
     subject = 'You have New Consultation From Usalama Smart'
     html_content = render_to_string('usalama_smart/expert_booking_email.html', {
             'expert_name':expert_name,

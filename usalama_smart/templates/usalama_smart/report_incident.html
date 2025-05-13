@@ -9,15 +9,24 @@
     <h1 class="h1-1">{% trans "Report an Incident" %}</h1>
     <form id="incidentForm" method="POST" enctype="multipart/form-data" action="">
       {% csrf_token %}
-      
+      <div class="input-group">
+        <label for="company" class="form-label">{% trans "Company/Industry" %}</label>
+        <input type="text" id="company" name="company" class="form-input" placeholder="{% trans 'Enter the Company Name' %}" required>
+      </div>
+
+      <div class="input-group">
+        <label for="located" class="form-label">{% trans "Location" %}</label>
+        <input type="text" id="located" name="located" class="form-input" placeholder="{% trans 'Enter the Location Name' %}" required>
+      </div>
+
       <div class="input-group">
         <label for="title" class="form-label">{% trans "Title" %}</label>
-        <input type="text" id="title" name="title" class="form-input" placeholder="{% trans "Enter the incident title" %}" required>
+        <input type="text" id="title" name="title" class="form-input" placeholder="{% trans 'Enter the incident title' %}" required>
       </div>
-      
+
       <div class="input-group">
         <label for="description" class="form-label">{% trans "Description" %}</label>
-        <textarea id="description" name="description" class="form-textarea" placeholder="{% trans "Describe the incident" %}" rows="5" required></textarea>
+        <textarea id="description" name="description" class="form-textarea" placeholder="{% trans 'Describe the incident' %}" rows="5" required></textarea>
       </div>
       
       <div class="input-group">
@@ -30,7 +39,7 @@
         </select>
       </div>
       
-      <div class="input-group">
+      <!-- <div class="input-group">
         <label for="reporter" class="form-label">{% trans "Reporter" %}</label>
         <select id="reporter" name="reporter" class="form-select">
           <option value="">{% trans "Select Reporter" %}</option>
@@ -38,7 +47,7 @@
             <option value="{{ reporter.id }}">{{ reporter }}</option>
           {% endfor %}
         </select>
-      </div>
+      </div> -->
       
       <div class="input-group">
         <label for="image" class="form-label">{% trans "Upload Image" %}</label>
@@ -53,7 +62,7 @@
       <input type="hidden" id="latitude" name="latitude">
       <input type="hidden" id="longitude" name="longitude">
 
-      <button type="button" onclick="submitForm()" class="form-button">{% trans "Submit" %}</button>
+      <button type="button" onclick="submitForm()" class="form-button">{% trans "Report" %}</button>
     </form>
   </div>
 </section>

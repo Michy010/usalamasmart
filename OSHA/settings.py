@@ -125,7 +125,6 @@ WSGI_APPLICATION = 'OSHA.wsgi.application'
 
 import dj_database_url
 
-# django_project/settings.py
 
 DATABASES = {
     "default": dj_database_url.parse(env("DATABASE_URL", default="sqlite:///db.sqlite3")),

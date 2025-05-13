@@ -11,7 +11,7 @@ class Content(models.Model):
         ('video', _('Video')),
         ('mixed', _('Mixed')),
     )
-
+    
     title = models.CharField(max_length=255, default='Title')
     content_type = models.CharField(max_length=5, choices=CONTENT_TYPES, blank=True, null=True)
     text = models.TextField(blank=True, null=True)
@@ -30,7 +30,8 @@ class Incident(models.Model):
         ('Medium', 'Medium'),
         ('High', 'High'),
     ]
-
+    company = models.CharField(max_length=255, default='Not Provided')
+    located = models.CharField(max_length=255, default='Not Provided')
     title = models.CharField(max_length=200)
     description = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
